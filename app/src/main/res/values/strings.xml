@@ -1,16 +1,22 @@
 <resources>
-  <string name="app_name">Hillforts</string>
-  <string name="button_addHillfort">Add Hillfort</string>
-  <string name="hint_hillfortTitle">Hillfort Title</string>
-  <string name="hint_hillfortDescription">Description </string>
-  <string name="menu_addHillfort">Add</string>
-  <string name="menu_cancelHillfort">Cancel</string>
-  <string name="menu_deleteHillfort">Delete</string>
-  <string name="enter_hillfort_title"> Please enter a Hillfort Title </string>
-  <string name="save_hillfort"> Save Hillfort </string>
-  <string name="button_addImage"> Add Image </string>
-  <string name="select_hillfort_image">Select hillfort image</string>
-  <string name="change_hillfort_image">Change hillfort image</string>
-  <string name="button_location">Set Location</string>
+    <string name="app_name">Hillforts</string>
+    <string name="button_addHillfort">Add Hillfort</string>
+    <string name="hint_hillfortTitle">Hillfort Title</string>
+    <string name="hint_hillfortDescription">Description </string>
+    <string name="menu_addHillfort">Add</string>
+    <string name="menu_cancelHillfort">Cancel</string>
+    <string name="menu_deleteHillfort">Delete</string>
+    <string name="enter_hillfort_title"> Please enter a Hillfort Title </string>
+    <string name="save_hillfort"> Save Hillfort </string>
+    <string name="button_addImage"> Add Image </string>
+    <string name="select_hillfort_image">Select hillfort image</string>
+    <string name="change_hillfort_image">Change hillfort image</string>
+    <string name="button_location">Set Location</string>
     <string name="title_activity_map">Map</string>
+    <string name="title_activity_splash">SplashActivity</string>
+    <!--
+    This string is used for square devices and overridden by hello_world in
+    values-round/strings.xml for round devices.
+    -->
+    <string name="hello_world">Hello Square World!</string>
 </resources>
