@@ -8,9 +8,12 @@
     <string name="menu_deleteHillfort">Delete</string>
     <string name="enter_hillfort_title"> Please enter a Hillfort Title </string>
     <string name="save_hillfort"> Save Hillfort </string>
-    <string name="button_addImage"> Add Image </string>
-    <string name="select_hillfort_image">Select hillfort image</string>
-    <string name="change_hillfort_image">Change hillfort image</string>
+    <string name="button_addImage1"> Add Image 1</string>
+    <string name="button_addImage2"> Add Image 2</string>
+    <string name="select_hillfort_image1">Select hillfort image 1</string>
+    <string name="select_hillfort_image2">Select hillfort image 2</string>
+    <string name="change_hillfort_image1">Change hillfort image 1</string>
+    <string name="change_hillfort_image2">Change hillfort image 2</string>
     <string name="button_location">Set Location</string>
     <string name="title_activity_map">Map</string>
     <string name="title_activity_splash">SplashActivity</string>
