@@ -9,10 +9,12 @@ import androidx.appcompat.app.AppCompatActivity
 import org.jetbrains.anko.intentFor
 import org.jetbrains.anko.startActivityForResult
 import org.wit.hillforts.R
+import org.wit.hillforts.main.MainApp
 import org.wit.hillforts.models.UserModel
 
 
 class LoginActivity : AppCompatActivity() {
+    lateinit var app : MainApp
     lateinit var etEmail: EditText
     lateinit var  etPassword: EditText
     val MIN_PASSWORD_LENGTH = 6
@@ -23,19 +25,19 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+        app = application as MainApp
         viewInitializations()
     }
 
-    fun viewInitializations() {
+    private fun viewInitializations() {
         etEmail = findViewById(R.id.et_email)
         etPassword = findViewById(R.id.et_password)
 
-        // To show back button in actionbar
-       // supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
     }
 
     // Checking if the input in form is valid
-    fun validateInput(): Boolean {
+    private fun validateInput(): Boolean {
         if (etEmail.text.toString() == "") {
             etEmail.error = "Please Enter Email"
             return false
@@ -59,28 +61,54 @@ class LoginActivity : AppCompatActivity() {
         return true
     }
 
-    fun isEmailValid(email: String?): Boolean {
+    private fun isEmailValid(email: String?): Boolean {
         return Patterns.EMAIL_ADDRESS.matcher(email).matches()
     }
 
-    // Hook Click Event
-    fun performSignIn(v: View) {
-        if (validateInput()) {
+    private fun isExistingUser(): Boolean{
+        getUserFromFile()
+        //Check if a user with that email exists
+        return true
 
-            // Input is valid, here send data to your server
+    }
+
+    private fun isCorrectPassword(): Boolean{
+        val returnedUser = getUserFromFile()
+        var success = false
+        if(returnedUser != null){
+            if(returnedUser.password == etPassword!!.text.toString() )
+            {
+                success = true
+            }
+        }
+
+
+            return success
+
+
+    }
+
+    private fun getUserFromFile(): UserModel{
+
+        user = app.users.findOne(etEmail!!.text.toString())!!
+
+        return user
+    }
+
+    fun performSignIn(v: View) {
+        if (validateInput() && isExistingUser() && isCorrectPassword()) {
+
+
             user.email = etEmail!!.text.toString()
             user.password = etPassword!!.text.toString()
             Toast.makeText(this, "Login Success", Toast.LENGTH_SHORT).show()
             startActivityForResult (intentFor<HillfortListActivity>().putExtra("user", user), USER_REQUEST)
-            //startActivityForResult<HillfortListActivity>(0)
+
         }
+        Toast.makeText(this, "Login Failed", Toast.LENGTH_SHORT).show()
     }
 
     fun goToSignup(v: View) {
-        // Open your SignUp Activity if the user wants to signup
-        // Visit this article to get SignupActivity code https://handyopinion.com/signup-activity-in-android-studio-kotlin-java/
-        //val intent = Intent(this, SignupActivity::class.java)
-        //startActivity(intent)
         startActivityForResult<SignupActivity>(0)
     }
 }

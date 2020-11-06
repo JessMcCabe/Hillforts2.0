@@ -11,7 +11,7 @@ internal fun getUserId(): Long{
     return lastUserId++
 }
 
-class UserMemStore : UserStore, AnkoLogger {
+ class UserMemStore : UserStore, AnkoLogger {
 
     val users = ArrayList<UserModel>()
 
@@ -39,6 +39,11 @@ class UserMemStore : UserStore, AnkoLogger {
         var foundUser: UserModel? = users.find { u -> u.id == user.id }
         users.remove(foundUser)
         logAll()
+    }
+
+     override fun findOne(email: String): UserModel? {
+        return users.find { u -> u.email == email }
+
     }
 
     fun logAll(){

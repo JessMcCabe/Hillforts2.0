@@ -29,7 +29,7 @@ class SignupActivity : AppCompatActivity() {
         viewInitializations()
     }
 
-    fun viewInitializations() {
+    private fun viewInitializations() {
         etFirstName = findViewById(R.id.et_first_name)
         etLastName = findViewById(R.id.et_last_name)
         etEmail = findViewById(R.id.et_email)
@@ -41,7 +41,7 @@ class SignupActivity : AppCompatActivity() {
     }
 
     // Checking if the input in form is valid
-    fun validateInput(): Boolean {
+    private fun validateInput(): Boolean {
         if (etFirstName.text.toString().equals("")) {
             etFirstName.setError("Please Enter First Name")
             return false
@@ -83,29 +83,31 @@ class SignupActivity : AppCompatActivity() {
         return true
     }
 
-    fun isEmailValid(email: String): Boolean {
+    private fun isEmailValid(email: String): Boolean {
         return Patterns.EMAIL_ADDRESS.matcher(email).matches()
     }
 
-    // Hook Click Event
+
 
     fun performSignUp (view: View) {
         if (validateInput()) {
 
-            // Input is valid, here send data to your server
+
 
             val firstName = etFirstName.text.toString()
             val lastName = etLastName.text.toString()
             val email = etEmail.text.toString()
             val password = etPassword.text.toString()
             val repeatPassword = etRepeatPassword.text.toString()
-            user.email = etEmail.text.toString()
-            user.password = etPassword.text.toString()
+            user.email = email
+            user.password = password
+            user.firstName = firstName
+            user.lastName = lastName
             app.users.create(user.copy())
             setResult(RESULT_OK)
             finish()
-            Toast.makeText(this,"Login Success",Toast.LENGTH_SHORT).show()
-            // Here you can call you API
+            Toast.makeText(this,"SignUp Success",Toast.LENGTH_SHORT).show()
+
 
         }
     }

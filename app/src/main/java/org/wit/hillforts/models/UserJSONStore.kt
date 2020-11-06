@@ -18,7 +18,7 @@ fun generateRandomIdUser(): Long {
     return Random().nextLong()
 }
 
-class UserJSONStore : UserStore, AnkoLogger {
+ class UserJSONStore : UserStore, AnkoLogger {
 
     val context: Context
     var users = mutableListOf<UserModel>()
@@ -55,6 +55,10 @@ class UserJSONStore : UserStore, AnkoLogger {
         var foundUser: UserModel? = users.find { u -> u.id == user.id }
         users.remove(foundUser)
         serialize()
+    }
+
+     override fun findOne(email: String): UserModel? {
+        return users.find { u -> u.email == email }
     }
 
     private fun serialize() {
