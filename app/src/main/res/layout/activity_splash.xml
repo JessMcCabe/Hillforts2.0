@@ -15,7 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="250dp"
-        android:src="@drawable/ic_launcher_background"
+        android:src="@drawable/splash"
         app:srcCompat="@android:drawable/sym_def_app_icon" />
 
     <TextView
