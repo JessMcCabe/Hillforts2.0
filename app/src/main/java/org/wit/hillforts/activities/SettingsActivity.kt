@@ -2,36 +2,39 @@ package org.wit.hillforts.activities
 
 import android.os.Bundle
 import android.util.Patterns
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import org.jetbrains.anko.AnkoLogger
+import org.jetbrains.anko.info
 import org.wit.hillforts.R
 import org.wit.hillforts.main.MainApp
 import org.wit.hillforts.models.UserModel
 
-class SignupActivity : AppCompatActivity() {
+class SettingsActivity : AppCompatActivity(), AnkoLogger {
 
     lateinit var app : MainApp
-    lateinit var etFirstName: EditText
-    lateinit var etLastName:EditText
+
     lateinit var etEmail: EditText
     lateinit var etPassword:EditText
     lateinit var etRepeatPassword:EditText
     val MIN_PASSWORD_LENGTH = 6;
     var user = UserModel()
-    val USER_REQUEST = 4
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_signup)
+        setContentView(R.layout.activity_settings)
         app = application as MainApp
+        user = intent.extras?.getParcelable("user")!!
         viewInitializations()
     }
 
     private fun viewInitializations() {
-        etFirstName = findViewById(R.id.et_first_name)
-        etLastName = findViewById(R.id.et_last_name)
+
         etEmail = findViewById(R.id.et_email)
         etPassword = findViewById(R.id.et_password)
         etRepeatPassword = findViewById(R.id.et_repeat_password)
@@ -42,14 +45,7 @@ class SignupActivity : AppCompatActivity() {
 
     // Checking if the input in form is valid
     private fun validateInput(): Boolean {
-        if (etFirstName.text.toString().equals("")) {
-            etFirstName.setError("Please Enter First Name")
-            return false
-        }
-        if (etLastName.text.toString().equals("")) {
-            etLastName.setError("Please Enter Last Name")
-            return false
-        }
+
         if (etEmail.text.toString().equals("")) {
             etEmail.setError("Please Enter Email")
             return false
@@ -89,27 +85,40 @@ class SignupActivity : AppCompatActivity() {
 
 
 
-    fun performSignUp (view: View) {
+    fun performSave (view: View) {
         if (validateInput()) {
 
 
 
-            val firstName = etFirstName.text.toString()
-            val lastName = etLastName.text.toString()
+
             val email = etEmail.text.toString()
             val password = etPassword.text.toString()
             val repeatPassword = etRepeatPassword.text.toString()
             user.email = email
             user.password = password
-            user.firstName = firstName
-            user.lastName = lastName
-            app.users.create(user.copy())
+            app.users.update(user.copy())
             setResult(RESULT_OK)
             finish()
-            Toast.makeText(this,"SignUp Success",Toast.LENGTH_SHORT).show()
+            Toast.makeText(this,"Updated Successfully",Toast.LENGTH_SHORT).show()
 
 
         }
+
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.menu_settings, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.item_cancel -> {
+                finish()
+            }
+
+        }
+        return super.onOptionsItemSelected(item)
     }
 
 }

@@ -43,10 +43,13 @@ class HillfortListActivity : AppCompatActivity(), HillfortListener, AnkoLogger {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        info("In Hillfort List Activity, user is..${item}")
         when (item?.itemId) {
+
             R.id.item_add -> startActivityForResult(intentFor<HillfortActivity>().putExtra("user", user),USER_REQUEST)
 
             R.id.btn_logout -> startActivityForResult<LoginActivity>(0)
+            R.id.btn_settings -> startActivityForResult(intentFor<SettingsActivity>().putExtra("user", user),USER_REQUEST)
         }
         return super.onOptionsItemSelected(item)
     }
