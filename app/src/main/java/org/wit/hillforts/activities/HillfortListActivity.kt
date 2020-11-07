@@ -56,8 +56,8 @@ class HillfortListActivity : AppCompatActivity(), HillfortListener, AnkoLogger {
     override fun onHillfortClick(hillfort: HillfortModel) {
 
         startActivityForResult(intentFor<HillfortActivity>().putExtra("hillfort_edit", hillfort)
-            //.putExtra("user", user)
-            ,0
+            .putExtra("user", user)
+            ,USER_REQUEST
 
         )
 
