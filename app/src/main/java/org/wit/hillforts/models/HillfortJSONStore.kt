@@ -27,10 +27,11 @@ class HillfortJSONStore : HillfortStore, AnkoLogger {
             deserialize()
         }
     }
-
-    override fun findAll(): MutableList<HillfortModel> {
+    override fun findAll(): List<HillfortModel> {
         return hillforts
     }
+
+
 
     override fun create(hillfort: HillfortModel) {
         hillfort.id = generateRandomId()

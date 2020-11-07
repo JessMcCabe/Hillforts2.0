@@ -99,12 +99,11 @@ class LoginActivity : AppCompatActivity() {
         if (validateInput() && isExistingUser() && isCorrectPassword()) {
 
 
-            user.email = etEmail!!.text.toString()
-            user.password = etPassword!!.text.toString()
+            user = app.users.findOne(etEmail!!.text.toString())!!
             Toast.makeText(this, "Login Success", Toast.LENGTH_SHORT).show()
             startActivityForResult (intentFor<HillfortListActivity>().putExtra("user", user), USER_REQUEST)
 
-        }
+        }else
         Toast.makeText(this, "Login Failed", Toast.LENGTH_SHORT).show()
     }
 

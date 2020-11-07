@@ -17,9 +17,10 @@ import org.wit.hillforts.models.HillfortModel
 import org.wit.hillforts.helpers.readImage
 import org.wit.hillforts.helpers.readImageFromPath
 import org.wit.hillforts.models.Location
+import org.wit.hillforts.models.UserModel
 
 class HillfortActivity : AppCompatActivity(), AnkoLogger {
-
+  var user = UserModel()
   var hillfort = HillfortModel()
   lateinit var app : MainApp
   val IMAGE_REQUEST1 = 1
@@ -40,6 +41,7 @@ class HillfortActivity : AppCompatActivity(), AnkoLogger {
     info("Hillfort Activity started..")
 
     app = application as MainApp
+    user = intent.extras?.getParcelable("user")!!
     var edit = false
 
     if (intent.hasExtra("hillfort_edit")) {
@@ -67,6 +69,7 @@ class HillfortActivity : AppCompatActivity(), AnkoLogger {
     }
 
     btnAdd.setOnClickListener() {
+      hillfort.userId = user.id
        hillfort.title = hillfortTitle.text.toString()
       hillfort.description = description.text.toString()
       if (hillfort.title.isEmpty()) {
