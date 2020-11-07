@@ -65,16 +65,16 @@ class HillfortActivity : AppCompatActivity(), AnkoLogger {
     if (intent.hasExtra("hillfort_edit")) {
 
       edit = true
-      if (hillfort.image1 != null) {
+      if (hillfort.image1 != "") {
         chooseImage1.setText(R.string.change_hillfort_image1)
       }
-      if (hillfort.image2 != null) {
+      if (hillfort.image2 != "") {
         chooseImage2.setText(R.string.change_hillfort_image2)
       }
-      if (hillfort.image3 != null) {
+      if (hillfort.image3 != "") {
         chooseImage3.setText(R.string.change_hillfort_image3)
       }
-      if (hillfort.image4 != null) {
+      if (hillfort.image4 != "") {
         chooseImage4.setText(R.string.change_hillfort_image4)
       }
       hillfort = intent.extras?.getParcelable("hillfort_edit")!!
