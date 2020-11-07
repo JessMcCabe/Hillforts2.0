@@ -1,14 +1,11 @@
 package org.wit.hillforts.activities
 
 import android.content.Intent
-import android.os.Build
+
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Toast
-import com.jakewharton.threetenabp.AndroidThreeTen
-import org.threeten.bp.LocalDateTime
 import kotlinx.android.synthetic.main.activity_hillfort.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
@@ -41,7 +38,7 @@ class HillfortActivity : AppCompatActivity(), AnkoLogger {
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    AndroidThreeTen.init(this);
+
     setContentView(R.layout.activity_hillfort)
     toolbarAdd.title = title
 
@@ -51,7 +48,7 @@ class HillfortActivity : AppCompatActivity(), AnkoLogger {
 
     app = application as MainApp
     user = intent.extras?.getParcelable("user")!!
-    hillfort = intent.extras?.getParcelable("hillfort_edit")!!
+
 
     info("the hillfort is ........${hillfort}")
 
@@ -63,7 +60,7 @@ class HillfortActivity : AppCompatActivity(), AnkoLogger {
     var edit = false
 
     if (intent.hasExtra("hillfort_edit")) {
-
+      hillfort = intent.extras?.getParcelable("hillfort_edit")!!
       edit = true
       if (hillfort.image1 != "") {
         chooseImage1.setText(R.string.change_hillfort_image1)
