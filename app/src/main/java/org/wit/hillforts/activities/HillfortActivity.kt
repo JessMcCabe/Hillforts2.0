@@ -81,6 +81,7 @@ class HillfortActivity : AppCompatActivity(), AnkoLogger {
       hillfortTitle.setText(hillfort.title)
       description.setText(hillfort.description)
       dateVisited.setText(hillfort.dateVisited)
+      additionalNotes.setText(hillfort.additionalNotes)
       hillfortImage1.setImageBitmap(readImageFromPath(this, hillfort.image1))
       hillfortImage2.setImageBitmap(readImageFromPath(this, hillfort.image2))
       hillfortImage3.setImageBitmap(readImageFromPath(this, hillfort.image3))
@@ -93,6 +94,7 @@ class HillfortActivity : AppCompatActivity(), AnkoLogger {
       hillfort.title = hillfortTitle.text.toString()
       hillfort.description = description.text.toString()
       hillfort.dateVisited = dateVisited.text.toString()
+      hillfort.additionalNotes = additionalNotes.text.toString()
       if (hillfort.title.isEmpty()) {
         toast(R.string.enter_hillfort_title)
       } else {

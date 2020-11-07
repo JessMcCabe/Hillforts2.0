@@ -47,7 +47,7 @@
             android:autofillHints=""
             android:hint="@string/hint_hillfortTitle"
             android:inputType="text"
-            android:maxLength="25"
+            android:maxLength="50"
             android:maxLines="1"
             android:padding="8dp"
             android:textColor="@color/colorPrimaryDark"
@@ -60,7 +60,7 @@
             android:layout_margin="8dp"
             android:hint="@string/hint_hillfortDescription"
             android:inputType="text"
-            android:maxLength="25"
+            android:maxLength="250"
             android:maxLines="1"
             android:padding="8dp"
             android:textColor="@color/colorPrimaryDark"
@@ -81,6 +81,19 @@
             android:inputType="text"
             android:maxLength="25"
             android:maxLines="1"
+            android:padding="8dp"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/additionalNotes"
+            android:layout_width="match_parent"
+            android:layout_height="103dp"
+            android:layout_margin="8dp"
+            android:hint="@string/hint_additionalNotes"
+            android:inputType="textMultiLine"
+            android:maxLength="250"
+            android:maxLines="3"
             android:padding="8dp"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="14sp" />
