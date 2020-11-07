@@ -1,10 +1,14 @@
 package org.wit.hillforts.activities
 
 import android.content.Intent
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
+import com.jakewharton.threetenabp.AndroidThreeTen
+import org.threeten.bp.LocalDateTime
 import kotlinx.android.synthetic.main.activity_hillfort.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
@@ -18,6 +22,7 @@ import org.wit.hillforts.helpers.readImage
 import org.wit.hillforts.helpers.readImageFromPath
 import org.wit.hillforts.models.Location
 import org.wit.hillforts.models.UserModel
+
 
 class HillfortActivity : AppCompatActivity(), AnkoLogger {
   var user = UserModel()
@@ -33,15 +38,16 @@ class HillfortActivity : AppCompatActivity(), AnkoLogger {
 
 
 
+
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-
+    AndroidThreeTen.init(this);
     setContentView(R.layout.activity_hillfort)
     toolbarAdd.title = title
 
     setSupportActionBar(toolbarAdd)
     info("Hillfort Activity started..")
-    info("Expect it to print next........")
+
 
     app = application as MainApp
     user = intent.extras?.getParcelable("user")!!
@@ -74,6 +80,7 @@ class HillfortActivity : AppCompatActivity(), AnkoLogger {
       hillfort = intent.extras?.getParcelable("hillfort_edit")!!
       hillfortTitle.setText(hillfort.title)
       description.setText(hillfort.description)
+      dateVisited.setText(hillfort.dateVisited)
       hillfortImage1.setImageBitmap(readImageFromPath(this, hillfort.image1))
       hillfortImage2.setImageBitmap(readImageFromPath(this, hillfort.image2))
       hillfortImage3.setImageBitmap(readImageFromPath(this, hillfort.image3))
@@ -83,19 +90,22 @@ class HillfortActivity : AppCompatActivity(), AnkoLogger {
 
     btnAdd.setOnClickListener() {
       hillfort.userId = user.id
-       hillfort.title = hillfortTitle.text.toString()
+      hillfort.title = hillfortTitle.text.toString()
       hillfort.description = description.text.toString()
+      hillfort.dateVisited = dateVisited.text.toString()
       if (hillfort.title.isEmpty()) {
         toast(R.string.enter_hillfort_title)
-      }else{
-        if(edit) {
+      } else {
+        if (edit) {
           app.hillforts.update(hillfort.copy())
         } else {
           app.hillforts.create(hillfort.copy())
         }
+
         info("add Button Pressed: ${hillfort}")
         setResult(RESULT_OK)
         finish()
+
       }
     }
     checkBox.setOnClickListener() {
@@ -103,10 +113,12 @@ class HillfortActivity : AppCompatActivity(), AnkoLogger {
       if(hillfort.visited){
         checkBox.isChecked = false
         hillfort.visited = false
+
       }else
       if(!hillfort.visited){
         hillfort.visited = true
         checkBox.isChecked = true
+
       }
       app.hillforts.update(hillfort.copy())
 
