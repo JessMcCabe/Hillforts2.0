@@ -102,6 +102,41 @@
             android:layout_height="wrap_content"
             app:srcCompat="@mipmap/ic_launcher"/>
 
+        <Button
+            android:id="@+id/chooseImage3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:background="@color/colorAccent"
+            android:paddingBottom="8dp"
+            android:paddingTop="8dp"
+            android:text="@string/button_addImage3"
+            android:textColor="@color/colorPrimary"
+            android:textSize="16sp"/>
+
+        <ImageView
+            android:id="@+id/hillfortImage3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:srcCompat="@mipmap/ic_launcher"/>
+
+        <Button
+            android:id="@+id/chooseImage4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:background="@color/colorAccent"
+            android:paddingBottom="8dp"
+            android:paddingTop="8dp"
+            android:text="@string/button_addImage4"
+            android:textColor="@color/colorPrimary"
+            android:textSize="16sp"/>
+
+        <ImageView
+            android:id="@+id/hillfortImage4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:srcCompat="@mipmap/ic_launcher"/>
 
         <Button
             android:id="@+id/hillfortLocation"
