@@ -44,6 +44,7 @@ class HillfortJSONStore : HillfortStore, AnkoLogger {
         var foundHillfort: HillfortModel? = hillforts.find { h -> h.id == hillfort.id }
         if (foundHillfort != null) {
             foundHillfort.title = hillfort.title
+            foundHillfort.visited = hillfort.visited
             foundHillfort.description = hillfort.description
             foundHillfort.image1 = hillfort.image1
             foundHillfort.image2 = hillfort.image2

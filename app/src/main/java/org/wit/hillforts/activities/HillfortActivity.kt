@@ -35,16 +35,29 @@ class HillfortActivity : AppCompatActivity(), AnkoLogger {
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
+
     setContentView(R.layout.activity_hillfort)
     toolbarAdd.title = title
+
     setSupportActionBar(toolbarAdd)
     info("Hillfort Activity started..")
+    info("Expect it to print next........")
 
     app = application as MainApp
     user = intent.extras?.getParcelable("user")!!
+    hillfort = intent.extras?.getParcelable("hillfort_edit")!!
+
+    info("the hillfort is ........${hillfort}")
+
+
+  if(hillfort.visited){
+    checkBox.toggle()
+  }
+
     var edit = false
 
     if (intent.hasExtra("hillfort_edit")) {
+
       edit = true
       if (hillfort.image1 != null) {
         chooseImage1.setText(R.string.change_hillfort_image1)
@@ -85,7 +98,23 @@ class HillfortActivity : AppCompatActivity(), AnkoLogger {
         finish()
       }
     }
+    checkBox.setOnClickListener() {
 
+      if(hillfort.visited){
+        checkBox.isChecked = false
+        hillfort.visited = false
+      }else
+      if(!hillfort.visited){
+        hillfort.visited = true
+        checkBox.isChecked = true
+      }
+      app.hillforts.update(hillfort.copy())
+
+        setResult(RESULT_OK)
+
+        //finish()
+
+    }
     chooseImage1.setOnClickListener {
       showImagePicker(this, IMAGE_REQUEST1)
     }
