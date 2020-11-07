@@ -21,7 +21,7 @@ class SplashActivity : AppCompatActivity() {
         Handler(Looper.getMainLooper()).postDelayed(
             {
                 run {
-                    startActivityForResult<HillfortListActivity>(0)
+                    startActivityForResult<LoginActivity>(0)
 
                     // close this activity
                     finish()
