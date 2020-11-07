@@ -90,6 +90,8 @@ class HillfortActivity : AppCompatActivity(), AnkoLogger {
       }
       startActivityForResult (intentFor<MapActivity>().putExtra("location", location), LOCATION_REQUEST)
     }
+
+
   }
 
 
