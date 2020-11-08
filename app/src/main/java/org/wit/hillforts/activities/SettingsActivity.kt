@@ -8,6 +8,7 @@ import android.view.View
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import kotlinx.android.synthetic.main.activity_settings.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
 import org.wit.hillforts.R
@@ -23,6 +24,8 @@ class SettingsActivity : AppCompatActivity(), AnkoLogger {
     lateinit var etRepeatPassword:EditText
     val MIN_PASSWORD_LENGTH = 6;
     var user = UserModel()
+    var hillfortsVisited: Int = 0
+    var hillfortsAssigned: Int = 0
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,6 +33,11 @@ class SettingsActivity : AppCompatActivity(), AnkoLogger {
         setContentView(R.layout.activity_settings)
         app = application as MainApp
         user = intent.extras?.getParcelable("user")!!
+        hillfortsVisited = intent.extras?.getInt("hillforts_visited")!!
+        hillfortsAssigned = intent.extras?.getInt("hillforts_number")!!
+
+       hillforts_visited.setText("Number of Hillforts Visited: ${hillfortsVisited}")
+        hillforts_assigned.setText("Number of Hillforts Assigned: ${hillfortsAssigned}")
         viewInitializations()
     }
 
