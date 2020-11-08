@@ -25,7 +25,7 @@
     <string name="change_hillfort_image4">Change hillfort image 4</string>
     <string name="button_location">Set Location</string>
     <string name="title_activity_map">Map</string>
-    <string name="title_activity_splash">SplashActivity</string>
+    <string name="title_activity_splash">Hillforts</string>
     <string name="menu_logout">Logout</string>
     <string name="menu_settings">Settings</string>
 </resources>

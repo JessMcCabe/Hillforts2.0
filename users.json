@@ -1,0 +1,37 @@
+[
+  {
+    "email": "bart@simpson.com",
+    "firstName": "Bart",
+    "id": 767065832609658098,
+    "lastName": "Simpson",
+    "password": "secret"
+  },
+  {
+    "email": "lisa@simpson.com",
+    "firstName": "Lisa",
+    "id": -2544457592191868715,
+    "lastName": "Simpson",
+    "password": "secret"
+  },
+  {
+    "email": "marge@simpson.com",
+    "firstName": "Marge",
+    "id": -3358666205973838817,
+    "lastName": "Simpson",
+    "password": "secret"
+  },
+  {
+    "email": "homer@simpson.com",
+    "firstName": "Homer",
+    "id": -6082536669660086288,
+    "lastName": "Simpson",
+    "password": "secret"
+  },
+  {
+    "email": "maggie@simpson.com",
+    "firstName": "Maggie",
+    "id": 4247881590951439914,
+    "lastName": "Simpson",
+    "password": "secret"
+  }
+]
