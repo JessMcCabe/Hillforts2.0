@@ -18,6 +18,7 @@ import org.wit.hillforts.models.UserModel
 
 class HillfortListActivity : AppCompatActivity(), HillfortListener, AnkoLogger {
     var user = UserModel()
+
     lateinit var app: MainApp
     val USER_REQUEST = 8
 
@@ -28,6 +29,7 @@ class HillfortListActivity : AppCompatActivity(), HillfortListener, AnkoLogger {
         setContentView(R.layout.activity_hillfort_list)
         app = application as MainApp
         user = intent.extras?.getParcelable("user")!!
+
         toolbar.title = title
         setSupportActionBar(toolbar)
         info("In Hillfort List Activity, user is..${user}")
@@ -49,7 +51,9 @@ class HillfortListActivity : AppCompatActivity(), HillfortListener, AnkoLogger {
             R.id.item_add -> startActivityForResult(intentFor<HillfortActivity>().putExtra("user", user),USER_REQUEST)
 
             R.id.btn_logout -> startActivityForResult<LoginActivity>(0)
-            R.id.btn_settings -> startActivityForResult(intentFor<SettingsActivity>().putExtra("user", user),USER_REQUEST)
+            R.id.btn_settings -> startActivityForResult(intentFor<SettingsActivity>().putExtra("user", user)
+                .putExtra("hillforts_number",numOfHillforts())
+                .putExtra("hillforts_visited",numOfHillfortsVisited()),USER_REQUEST)
         }
         return super.onOptionsItemSelected(item)
     }
@@ -81,6 +85,21 @@ class HillfortListActivity : AppCompatActivity(), HillfortListener, AnkoLogger {
     fun showHillforts (hillforts: List<HillfortModel>) {
         recyclerView.adapter = HillfortAdapter(hillforts, this)
         recyclerView.adapter?.notifyDataSetChanged()
+    }
+
+    private fun numOfHillforts(): Int {
+        val allHillforts = app.hillforts.findAll()
+        val userHillforts = allHillforts.filter { hillfort -> hillfort.userId == user.id  }
+
+        return userHillforts.size
+    }
+
+
+    private fun numOfHillfortsVisited(): Int {
+        val allHillforts = app.hillforts.findAll()
+        val userHillfortVisited = allHillforts.filter { hillfort -> hillfort.visited }
+
+        return userHillfortVisited.size
     }
 }
 
