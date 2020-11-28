@@ -7,14 +7,16 @@
     android:icon="@android:drawable/ic_menu_add"
     android:title="@string/menu_addHillfort"
     app:showAsAction="always" />
-
-
+    <item
+        android:id="@+id/item_map"
+        android:icon="@android:drawable/ic_menu_mapmode"
+        android:title="@string/menu_addHillfort"
+        app:showAsAction="always"/>
     <item
         android:id="@+id/btn_settings"
         app:srcCompat="@android:drawable/ic_lock_power_off"
         android:title="@string/menu_settings"
         app:showAsAction="always" />
-
     <item
         android:id="@+id/btn_logout"
         app:srcCompat="@android:drawable/ic_lock_power_off"

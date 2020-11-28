@@ -28,4 +28,8 @@
     <string name="title_activity_splash">Hillforts</string>
     <string name="menu_logout">Logout</string>
     <string name="menu_settings">Settings</string>
+    <string name="title_activity_hillforts_maps">hillforts maps</string>
+    <string name="hillfort_image_placeholder">Hillfort Image</string>
+    <string name="hillfort_title_placeholder">Hillfort Title</string>
+    <string name="hillfort_description_placeholder">Hillfort Description</string>
 </resources>
