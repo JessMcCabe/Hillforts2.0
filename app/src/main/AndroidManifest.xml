@@ -2,7 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="org.wit.hillforts">
 
-
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
@@ -13,7 +12,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
+        <activity
+            android:name=".activities.HillfortMapsActivity"
+            android:label="@string/title_activity_hillforts_maps"></activity>
 
         <meta-data
             android:name="com.google.android.wearable.standalone"
@@ -30,16 +31,13 @@
         </activity>
         <activity
             android:name=".activities.LoginActivity"
-            android:label="Login">
-        </activity>
+            android:label="Login"></activity>
         <activity
             android:name=".activities.SignupActivity"
-            android:label="SignUp">
-        </activity>
+            android:label="SignUp"></activity>
         <activity
             android:name=".activities.SettingsActivity"
-            android:label="Settings">
-        </activity>
+            android:label="Settings"></activity>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
@@ -49,8 +47,7 @@
             android:name=".activities.MapActivity"
             android:label="@string/title_activity_map" />
         <activity android:name=".activities.HillfortActivity" />
-        <activity android:name=".activities.HillfortListActivity">
-        </activity>
+        <activity android:name=".activities.HillfortListActivity"></activity>
     </application>
 
 </manifest>
