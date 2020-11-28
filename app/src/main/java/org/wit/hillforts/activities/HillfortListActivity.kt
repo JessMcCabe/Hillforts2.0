@@ -6,10 +6,7 @@ import android.view.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_hillfort_list.*
-import org.jetbrains.anko.AnkoLogger
-import org.jetbrains.anko.info
-import org.jetbrains.anko.intentFor
-import org.jetbrains.anko.startActivityForResult
+import org.jetbrains.anko.*
 import org.wit.hillforts.R
 import org.wit.hillforts.main.MainApp
 import org.wit.hillforts.models.HillfortModel
@@ -49,7 +46,7 @@ class HillfortListActivity : AppCompatActivity(), HillfortListener, AnkoLogger {
         when (item?.itemId) {
 
             R.id.item_add -> startActivityForResult(intentFor<HillfortActivity>().putExtra("user", user),USER_REQUEST)
-
+            R.id.item_map -> startActivity<HillfortMapsActivity>()
             R.id.btn_logout -> startActivityForResult<LoginActivity>(0)
             R.id.btn_settings -> startActivityForResult(intentFor<SettingsActivity>().putExtra("user", user)
                 .putExtra("hillforts_number",numOfHillforts())
