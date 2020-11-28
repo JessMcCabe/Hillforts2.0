@@ -1,0 +1,31 @@
+<resources>
+    <string name="app_name">Hillforts</string>
+    <string name="button_addHillfort">Add Hillfort</string>
+    <string name="hint_hillfortTitle">Hillfort Title</string>
+    <string name="hint_hillfortDescription">Description </string>
+    <string name="hint_additionalNotes">Additional Notes </string>
+    <string name="hint_dateVisited">Date Visited </string>
+    <string name="menu_addHillfort">Add</string>
+    <string name="menu_cancelHillfort">Cancel</string>
+    <string name="menu_cancelSettings">Cancel</string>
+    <string name="menu_deleteHillfort">Delete</string>
+    <string name="enter_hillfort_title"> Please enter a Hillfort Title </string>
+    <string name="save_hillfort"> Save Hillfort </string>
+    <string name="button_addImage1"> Add Image 1</string>
+    <string name="button_addImage2"> Add Image 2</string>
+    <string name="button_addImage3"> Add Image 3</string>
+    <string name="button_addImage4"> Add Image 4</string>
+    <string name="select_hillfort_image1">Select hillfort image 1</string>
+    <string name="select_hillfort_image2">Select hillfort image 2</string>
+    <string name="select_hillfort_image3">Select hillfort image 3</string>
+    <string name="select_hillfort_image4">Select hillfort image 4</string>
+    <string name="change_hillfort_image1">Change hillfort image 1</string>
+    <string name="change_hillfort_image2">Change hillfort image 2</string>
+    <string name="change_hillfort_image3">Change hillfort image 3</string>
+    <string name="change_hillfort_image4">Change hillfort image 4</string>
+    <string name="button_location">Set Location</string>
+    <string name="title_activity_map">Map</string>
+    <string name="title_activity_splash">Hillforts</string>
+    <string name="menu_logout">Logout</string>
+    <string name="menu_settings">Settings</string>
+</resources>
