@@ -19,6 +19,8 @@ import org.wit.hillforts.helpers.readImage
 import org.wit.hillforts.helpers.readImageFromPath
 import org.wit.hillforts.models.Location
 import org.wit.hillforts.models.UserModel
+import android.widget.RatingBar
+import kotlinx.android.synthetic.main.activity_splash.*
 
 
 class HillfortActivity : AppCompatActivity(), AnkoLogger {
@@ -30,6 +32,7 @@ class HillfortActivity : AppCompatActivity(), AnkoLogger {
   val IMAGE_REQUEST3 = 5
   val IMAGE_REQUEST4 = 6
   val LOCATION_REQUEST = 2
+
   //var location = Location(52.245696, -7.139102, 15f)
 
 
@@ -41,7 +44,7 @@ class HillfortActivity : AppCompatActivity(), AnkoLogger {
 
     setContentView(R.layout.activity_hillfort)
     toolbarAdd.title = title
-
+    val rBar = findViewById<RatingBar>(R.id.ratingBar2)
     setSupportActionBar(toolbarAdd)
     info("Hillfort Activity started..")
 
@@ -53,9 +56,9 @@ class HillfortActivity : AppCompatActivity(), AnkoLogger {
     info("the hillfort is ........${hillfort}")
 
 
-  if(hillfort.visited){
-    checkBox.toggle()
-  }
+    if (hillfort.visited) {
+      checkBox.toggle()
+    }
 
     var edit = false
 
@@ -79,6 +82,7 @@ class HillfortActivity : AppCompatActivity(), AnkoLogger {
       description.setText(hillfort.description)
       dateVisited.setText(hillfort.dateVisited)
       additionalNotes.setText(hillfort.additionalNotes)
+      rBar?.rating = hillfort.rating
       hillfortImage1.setImageBitmap(readImageFromPath(this, hillfort.image1))
       hillfortImage2.setImageBitmap(readImageFromPath(this, hillfort.image2))
       hillfortImage3.setImageBitmap(readImageFromPath(this, hillfort.image3))
@@ -92,6 +96,7 @@ class HillfortActivity : AppCompatActivity(), AnkoLogger {
       hillfort.description = description.text.toString()
       hillfort.dateVisited = dateVisited.text.toString()
       hillfort.additionalNotes = additionalNotes.text.toString()
+      hillfort.rating = rBar.rating
       if (hillfort.title.isEmpty()) {
         toast(R.string.enter_hillfort_title)
       } else {
@@ -109,21 +114,21 @@ class HillfortActivity : AppCompatActivity(), AnkoLogger {
     }
     checkBox.setOnClickListener() {
 
-      if(hillfort.visited){
+      if (hillfort.visited) {
         checkBox.isChecked = false
         hillfort.visited = false
 
-      }else
-      if(!hillfort.visited){
-        hillfort.visited = true
-        checkBox.isChecked = true
+      } else
+        if (!hillfort.visited) {
+          hillfort.visited = true
+          checkBox.isChecked = true
 
-      }
+        }
       app.hillforts.update(hillfort.copy())
 
-        setResult(RESULT_OK)
+      setResult(RESULT_OK)
 
-        //finish()
+      //finish()
 
     }
     chooseImage1.setOnClickListener {
@@ -146,15 +151,21 @@ class HillfortActivity : AppCompatActivity(), AnkoLogger {
     hillfortLocation.setOnClickListener {
       val location = Location(52.245696, -7.139102, 15f)
       if (hillfort.zoom != 0f) {
-        location.lat =  hillfort.lat
+        location.lat = hillfort.lat
         location.lng = hillfort.lng
         location.zoom = hillfort.zoom
       }
-      startActivityForResult (intentFor<MapActivity>().putExtra("location", location), LOCATION_REQUEST)
+      startActivityForResult(
+        intentFor<MapActivity>().putExtra("location", location),
+        LOCATION_REQUEST
+      )
     }
 
 
   }
+
+
+
 
 
   override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

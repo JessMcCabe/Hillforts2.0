@@ -58,7 +58,7 @@
           android:textSize="16sp"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@+id/description" />
+          app:layout_constraintTop_toBottomOf="@+id/ratingBar2" />
 
       <Button
           android:id="@+id/chooseImage2"
@@ -167,6 +167,14 @@
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toBottomOf="@+id/hillfortTitle" />
+
+      <RatingBar
+          android:id="@+id/ratingBar2"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@+id/description" />
 
       <EditText
           android:id="@+id/hillfortTitle"
