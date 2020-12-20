@@ -7,10 +7,6 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_hillfort.*
-import org.jetbrains.anko.AnkoLogger
-import org.jetbrains.anko.info
-import org.jetbrains.anko.intentFor
-import org.jetbrains.anko.toast
 import org.wit.hillforts.R
 import org.wit.hillforts.helpers.showImagePicker
 import org.wit.hillforts.main.MainApp
@@ -21,6 +17,7 @@ import org.wit.hillforts.models.Location
 import org.wit.hillforts.models.UserModel
 import android.widget.RatingBar
 import kotlinx.android.synthetic.main.activity_splash.*
+import org.jetbrains.anko.*
 
 
 class HillfortActivity : AppCompatActivity(), AnkoLogger {
@@ -55,9 +52,13 @@ class HillfortActivity : AppCompatActivity(), AnkoLogger {
 
     info("the hillfort is ........${hillfort}")
 
-
+doAsync {
     if (hillfort.visited) {
-      checkBox.toggle()
+      uiThread {
+
+        checkBox.toggle()
+      }
+    }
     }
 
     var edit = false
@@ -97,40 +98,46 @@ class HillfortActivity : AppCompatActivity(), AnkoLogger {
       hillfort.dateVisited = dateVisited.text.toString()
       hillfort.additionalNotes = additionalNotes.text.toString()
       hillfort.rating = rBar.rating
-      if (hillfort.title.isEmpty()) {
-        toast(R.string.enter_hillfort_title)
-      } else {
-        if (edit) {
-          app.hillforts.update(hillfort.copy())
+      doAsync {
+        if (hillfort.title.isEmpty()) {
+          toast(R.string.enter_hillfort_title)
         } else {
-          app.hillforts.create(hillfort.copy())
+          if (edit) {
+            app.hillforts.update(hillfort.copy())
+          } else {
+            app.hillforts.create(hillfort.copy())
+          }
+
+          info("add Button Pressed: ${hillfort}")
+          setResult(RESULT_OK)
+          uiThread {
+            finish()
+          }
         }
-
-        info("add Button Pressed: ${hillfort}")
-        setResult(RESULT_OK)
-        finish()
-
       }
     }
     checkBox.setOnClickListener() {
+doAsync {
+  if (hillfort.visited) {
+    checkBox.isChecked = false
+    hillfort.visited = false
 
-      if (hillfort.visited) {
-        checkBox.isChecked = false
-        hillfort.visited = false
+  } else
+    if (!hillfort.visited) {
+      hillfort.visited = true
+      checkBox.isChecked = true
 
-      } else
-        if (!hillfort.visited) {
-          hillfort.visited = true
-          checkBox.isChecked = true
-
-        }
-      app.hillforts.update(hillfort.copy())
-
-      setResult(RESULT_OK)
-
+    }
+  app.hillforts.update(hillfort.copy())
+  uiThread {
+    setResult(RESULT_OK)
+  }
+}
       //finish()
 
     }
+
+
     chooseImage1.setOnClickListener {
       showImagePicker(this, IMAGE_REQUEST1)
     }

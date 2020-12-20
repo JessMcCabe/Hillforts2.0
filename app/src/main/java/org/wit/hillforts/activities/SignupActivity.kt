@@ -5,7 +5,10 @@ import android.util.Patterns
 import android.view.View
 import android.widget.EditText
 import android.widget.Toast
+import androidx.annotation.UiThread
 import androidx.appcompat.app.AppCompatActivity
+import org.jetbrains.anko.doAsync
+import org.jetbrains.anko.uiThread
 import org.wit.hillforts.R
 import org.wit.hillforts.main.MainApp
 import org.wit.hillforts.models.UserModel
@@ -99,14 +102,20 @@ class SignupActivity : AppCompatActivity() {
             val email = etEmail.text.toString()
             val password = etPassword.text.toString()
             val repeatPassword = etRepeatPassword.text.toString()
-            user.email = email
-            user.password = password
-            user.firstName = firstName
-            user.lastName = lastName
-            app.users.create(user.copy())
-            setResult(RESULT_OK)
-            finish()
-            Toast.makeText(this,"SignUp Success",Toast.LENGTH_SHORT).show()
+            doAsync {
+                user.email = email
+                user.password = password
+                user.firstName = firstName
+                user.lastName = lastName
+                app.users.create(user.copy())
+
+                uiThread {
+                    setResult(RESULT_OK)
+                    finish()
+                }
+            }
+                    Toast.makeText(this, "SignUp Success", Toast.LENGTH_SHORT).show()
+
 
 
         }
