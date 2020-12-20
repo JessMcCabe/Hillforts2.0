@@ -6,8 +6,10 @@ import android.view.View
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.intentFor
 import org.jetbrains.anko.startActivityForResult
+import org.jetbrains.anko.uiThread
 import org.wit.hillforts.R
 import org.wit.hillforts.main.MainApp
 import org.wit.hillforts.models.UserModel
@@ -96,15 +98,23 @@ class LoginActivity : AppCompatActivity() {
     }
 
     fun performSignIn(v: View) {
-        if (validateInput() && isExistingUser() && isCorrectPassword()) {
+        doAsync {
+            if (validateInput() && isExistingUser() && isCorrectPassword()) {
 
 
-            user = app.users.findOne(etEmail!!.text.toString())!!
-            Toast.makeText(this, "Login Success", Toast.LENGTH_SHORT).show()
-            startActivityForResult (intentFor<HillfortListActivity>().putExtra("user", user), USER_REQUEST)
+                user = app.users.findOne(etEmail!!.text.toString())!!
+                uiThread {
+                    // Toast.makeText(this, "Login Success", Toast.LENGTH_SHORT).show()
+                    startActivityForResult(
+                        intentFor<HillfortListActivity>().putExtra("user", user),
+                        USER_REQUEST
+                    )
+                }
 
-        }else
-        Toast.makeText(this, "Login Failed", Toast.LENGTH_SHORT).show()
+            }
+            //else
+               // Toast.makeText(this, "Login Failed", Toast.LENGTH_SHORT).show()
+        }
     }
 
     fun goToSignup(v: View) {

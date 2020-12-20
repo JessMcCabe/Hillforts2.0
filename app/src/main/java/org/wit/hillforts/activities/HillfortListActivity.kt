@@ -73,10 +73,14 @@ class HillfortListActivity : AppCompatActivity(), HillfortListener, AnkoLogger {
     }
 
     private fun loadHillforts() {
-        val allHillforts = app.hillforts.findAll()
-        val userHillforts = allHillforts.filter { hillfort -> hillfort.userId == user.id  }
+        doAsync {
+            val allHillforts = app.hillforts.findAll()
+            val userHillforts = allHillforts.filter { hillfort -> hillfort.userId == user.id }
 
-        showHillforts(userHillforts)
+            uiThread {
+                showHillforts(userHillforts)
+            }
+        }
     }
 
     fun showHillforts (hillforts: List<HillfortModel>) {
