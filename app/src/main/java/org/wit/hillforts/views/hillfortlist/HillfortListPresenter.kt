@@ -1,11 +1,12 @@
-package org.wit.hillforts.activities
+package org.wit.hillforts.views.hillfortlist
 
 import org.jetbrains.anko.intentFor
 import org.jetbrains.anko.startActivity
-import org.jetbrains.anko.startActivityForResult
 import org.wit.hillforts.main.MainApp
 import org.wit.hillforts.models.HillfortModel
 import org.wit.hillforts.models.UserModel
+import org.wit.hillforts.views.hillfort.HillfortView
+import org.wit.hillforts.views.map.HillfortMapView
 
 class HillfortListPresenter (val view: HillfortListView) {
 
@@ -28,6 +29,6 @@ class HillfortListPresenter (val view: HillfortListView) {
     }
 
     fun doShowHillfortsMap() {
-        view.startActivity<HillfortMapsActivity>()
+        view.startActivity<HillfortMapView>()
     }
 }

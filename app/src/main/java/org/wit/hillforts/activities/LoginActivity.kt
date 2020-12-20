@@ -11,6 +11,7 @@ import org.jetbrains.anko.startActivityForResult
 import org.wit.hillforts.R
 import org.wit.hillforts.main.MainApp
 import org.wit.hillforts.models.UserModel
+import org.wit.hillforts.views.hillfortlist.HillfortListView
 
 
 class LoginActivity : AppCompatActivity() {

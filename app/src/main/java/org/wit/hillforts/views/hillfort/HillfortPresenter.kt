@@ -1,4 +1,4 @@
-package org.wit.hillforts.activities
+package org.wit.hillforts.views.hillfort
 
 import android.content.Intent
 import android.widget.RatingBar
@@ -7,6 +7,7 @@ import org.wit.hillforts.helpers.showImagePicker
 import org.wit.hillforts.main.MainApp
 import org.wit.hillforts.models.HillfortModel
 import org.wit.hillforts.models.Location
+import org.wit.hillforts.views.editlocation.EditLocationView
 
 class HillfortPresenter (val view: HillfortView) {
 
