@@ -101,7 +101,7 @@ class LoginActivity : AppCompatActivity() {
 
             user = app.users.findOne(etEmail!!.text.toString())!!
             Toast.makeText(this, "Login Success", Toast.LENGTH_SHORT).show()
-            startActivityForResult (intentFor<HillfortListActivity>().putExtra("user", user), USER_REQUEST)
+            startActivityForResult (intentFor<HillfortListView>().putExtra("user", user), USER_REQUEST)
 
         }else
         Toast.makeText(this, "Login Failed", Toast.LENGTH_SHORT).show()

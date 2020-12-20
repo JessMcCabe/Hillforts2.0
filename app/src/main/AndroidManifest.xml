@@ -47,7 +47,7 @@
             android:name=".activities.MapActivity"
             android:label="@string/title_activity_map" />
         <activity android:name=".activities.HillfortView" />
-        <activity android:name=".activities.HillfortListActivity"></activity>
+        <activity android:name=".activities.HillfortListView"></activity>
     </application>
 
 </manifest>
