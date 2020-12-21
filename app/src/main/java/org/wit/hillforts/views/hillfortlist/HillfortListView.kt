@@ -1,4 +1,4 @@
-package org.wit.hillforts.activities
+package org.wit.hillforts.views.hillfortlist
 
 import android.content.Intent
 import android.os.Bundle
@@ -8,15 +8,17 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_hillfort_list.*
 import org.jetbrains.anko.*
 import org.wit.hillforts.R
+import org.wit.hillforts.activities.LoginActivity
+import org.wit.hillforts.activities.SettingsActivity
 import org.wit.hillforts.main.MainApp
 import org.wit.hillforts.models.HillfortModel
 import org.wit.hillforts.models.UserModel
 
 
-class HillfortListActivity : AppCompatActivity(), HillfortListener, AnkoLogger {
+class HillfortListView : AppCompatActivity(), HillfortListener, AnkoLogger {
     var user = UserModel()
 
-    lateinit var app: MainApp
+    lateinit var presenter: HillfortListPresenter
     val USER_REQUEST = 8
 
 
@@ -24,16 +26,17 @@ class HillfortListActivity : AppCompatActivity(), HillfortListener, AnkoLogger {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_hillfort_list)
-        app = application as MainApp
+        presenter = HillfortListPresenter(this)
         user = intent.extras?.getParcelable("user")!!
-
+        val allHillforts = presenter.getHillforts()
+        val userHillforts = allHillforts.filter { hillfort -> hillfort.userId == user.id  }
         toolbar.title = title
         setSupportActionBar(toolbar)
         info("In Hillfort List Activity, user is..${user}")
         val layoutManager = LinearLayoutManager(this)
         recyclerView.layoutManager = layoutManager
-        //recyclerView.adapter = HillfortAdapter(app.hillforts)
-        loadHillforts()
+        recyclerView.adapter = HillfortAdapter(userHillforts, this)
+        recyclerView.adapter?.notifyDataSetChanged()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -45,8 +48,8 @@ class HillfortListActivity : AppCompatActivity(), HillfortListener, AnkoLogger {
         info("In Hillfort List Activity, user is..${item}")
         when (item?.itemId) {
 
-            R.id.item_add -> startActivityForResult(intentFor<HillfortActivity>().putExtra("user", user),USER_REQUEST)
-            R.id.item_map -> startActivity<HillfortMapsActivity>()
+            R.id.item_add -> presenter.doAddHillfort(user, USER_REQUEST)
+            R.id.item_map -> presenter.doShowHillfortsMap()
             R.id.btn_logout -> startActivityForResult<LoginActivity>(0)
             R.id.btn_settings -> startActivityForResult(intentFor<SettingsActivity>().putExtra("user", user)
                 .putExtra("hillforts_number",numOfHillforts())
@@ -59,11 +62,9 @@ class HillfortListActivity : AppCompatActivity(), HillfortListener, AnkoLogger {
 
     override fun onHillfortClick(hillfort: HillfortModel) {
 
-        startActivityForResult(intentFor<HillfortActivity>().putExtra("hillfort_edit", hillfort)
-            .putExtra("user", user)
-            ,USER_REQUEST
+        presenter.doEditHillfort(hillfort, user, USER_REQUEST)
 
-        )
+
 
     }
 
@@ -73,14 +74,10 @@ class HillfortListActivity : AppCompatActivity(), HillfortListener, AnkoLogger {
     }
 
     private fun loadHillforts() {
-        doAsync {
-            val allHillforts = app.hillforts.findAll()
-            val userHillforts = allHillforts.filter { hillfort -> hillfort.userId == user.id }
+        val allHillforts = presenter.getHillforts()
+        val userHillforts = allHillforts.filter { hillfort -> hillfort.userId == user.id  }
 
-            uiThread {
-                showHillforts(userHillforts)
-            }
-        }
+        showHillforts(userHillforts)
     }
 
     fun showHillforts (hillforts: List<HillfortModel>) {
@@ -89,7 +86,7 @@ class HillfortListActivity : AppCompatActivity(), HillfortListener, AnkoLogger {
     }
 
     private fun numOfHillforts(): Int {
-        val allHillforts = app.hillforts.findAll()
+        val allHillforts = presenter.getHillforts()
         val userHillforts = allHillforts.filter { hillfort -> hillfort.userId == user.id  }
 
         return userHillforts.size
@@ -97,7 +94,7 @@ class HillfortListActivity : AppCompatActivity(), HillfortListener, AnkoLogger {
 
 
     private fun numOfHillfortsVisited(): Int {
-        val allHillforts = app.hillforts.findAll()
+        val allHillforts = presenter.getHillforts()
         val userHillfortVisited = allHillforts.filter { hillfort -> hillfort.visited }
 
         return userHillfortVisited.size
