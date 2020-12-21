@@ -18,14 +18,15 @@ import org.wit.hillforts.models.UserModel
 import android.widget.RatingBar
 import kotlinx.android.synthetic.main.activity_hillfort.description
 import kotlinx.android.synthetic.main.activity_hillfort.hillfortTitle
+import org.wit.hillforts.views.BaseView
 
 
-class HillfortView : AppCompatActivity(), AnkoLogger {
+class HillfortView : BaseView(), AnkoLogger {
   var user = UserModel()
   lateinit var presenter: HillfortPresenter
   var hillfort = HillfortModel()
   lateinit var app : MainApp
-
+  //val rBar = findViewById<RatingBar>(R.id.ratingBar2)
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -37,7 +38,7 @@ class HillfortView : AppCompatActivity(), AnkoLogger {
     info("Hillfort Activity started..")
 
 
-    presenter = HillfortPresenter(this)
+    presenter = initPresenter( HillfortPresenter(this)) as HillfortPresenter
     user = intent.extras?.getParcelable("user")!!
 
 
@@ -75,10 +76,10 @@ class HillfortView : AppCompatActivity(), AnkoLogger {
       hillfortImage2.setImageBitmap(readImageFromPath(this, hillfort.image2))
       hillfortImage3.setImageBitmap(readImageFromPath(this, hillfort.image3))
       hillfortImage4.setImageBitmap(readImageFromPath(this, hillfort.image4))
-      btnAdd.setText(R.string.save_hillfort)
+      //btnAdd.setText(R.string.save_hillfort)
     }
 
-    btnAdd.setOnClickListener() {
+    /*btnAdd.setOnClickListener() {
 
       if (hillfortTitle.text.toString().isEmpty()) {
         toast(R.string.enter_hillfort_title)
@@ -97,7 +98,7 @@ class HillfortView : AppCompatActivity(), AnkoLogger {
         finish()
 
       }
-    }
+    }*/
     checkBox.setOnClickListener() {
 
       if (hillfort.visited) {
@@ -141,7 +142,7 @@ class HillfortView : AppCompatActivity(), AnkoLogger {
 
   }
 
-  fun showHillfort(hillfort: HillfortModel) {
+ override fun showHillfort(hillfort: HillfortModel) {
    hillfortTitle.setText(hillfort.title)
     description.setText(hillfort.description)
     dateVisited.setText(hillfort.dateVisited)
@@ -163,7 +164,7 @@ class HillfortView : AppCompatActivity(), AnkoLogger {
     if (hillfort.image4 != null) {
       chooseImage4.setText(R.string.change_hillfort_image4)
     }
-    btnAdd.setText(R.string.save_hillfort)
+    //btnAdd.setText(R.string.save_hillfort)
   }
 
 
@@ -175,6 +176,28 @@ class HillfortView : AppCompatActivity(), AnkoLogger {
 
   override fun onOptionsItemSelected(item: MenuItem): Boolean {
     when (item.itemId) {
+      R.id.item_save ->
+      {
+
+        if (hillfortTitle.text.toString().isEmpty()) {
+          toast(R.string.enter_hillfort_title)
+        } else {
+
+          presenter.doAddOrSave(user.id,hillfortTitle.text.toString(),
+            description.text.toString(),
+            dateVisited.text.toString(),
+            additionalNotes.text.toString(),
+            ratingBar2.rating
+          )
+
+
+          // info("add Button Pressed: ${hillfort}")
+          setResult(RESULT_OK)
+          finish()
+
+        }
+      }
+
       R.id.item_cancel -> {
         finish()
       }
