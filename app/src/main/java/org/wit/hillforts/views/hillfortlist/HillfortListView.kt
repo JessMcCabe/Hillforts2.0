@@ -28,13 +28,14 @@ class HillfortListView : AppCompatActivity(), HillfortListener, AnkoLogger {
         setContentView(R.layout.activity_hillfort_list)
         presenter = HillfortListPresenter(this)
         user = intent.extras?.getParcelable("user")!!
-
+        val allHillforts = presenter.getHillforts()
+        val userHillforts = allHillforts.filter { hillfort -> hillfort.userId == user.id  }
         toolbar.title = title
         setSupportActionBar(toolbar)
         info("In Hillfort List Activity, user is..${user}")
         val layoutManager = LinearLayoutManager(this)
         recyclerView.layoutManager = layoutManager
-        recyclerView.adapter = HillfortAdapter(presenter.getHillforts(), this)
+        recyclerView.adapter = HillfortAdapter(userHillforts, this)
         recyclerView.adapter?.notifyDataSetChanged()
     }
 
