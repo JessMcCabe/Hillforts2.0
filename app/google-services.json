@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "132872267554",
+    "project_id": "hillforts-jmcc",
+    "storage_bucket": "hillforts-jmcc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:132872267554:android:cc6e563bcb2abad1d9e77b",
+        "android_client_info": {
+          "package_name": "org.wit.hillforts"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "132872267554-edfesoahug0hbpemucqf83hnmi16p481.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD4mXSgudYbA7euCG4FrJXBePai76MEz6s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "132872267554-edfesoahug0hbpemucqf83hnmi16p481.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
