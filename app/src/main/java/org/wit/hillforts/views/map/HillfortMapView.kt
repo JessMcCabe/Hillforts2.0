@@ -2,6 +2,7 @@ package org.wit.hillforts.views.map
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.bumptech.glide.Glide
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.Marker
 import kotlinx.android.synthetic.main.activity_hillfort_list.toolbar
@@ -29,7 +30,7 @@ class HillfortMapView: AppCompatActivity(), GoogleMap.OnMarkerClickListener {
     fun showHillfort(hillfort: HillfortModel) {
         currentTitle.text = hillfort.title
         currentDescription.text = hillfort.description
-        currentImage.setImageBitmap(readImageFromPath(this, hillfort.image1))
+        Glide.with(this).load(hillfort.image1).into(currentImage);
     }
 
     override fun onMarkerClick(marker: Marker): Boolean {

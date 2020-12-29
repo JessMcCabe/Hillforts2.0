@@ -16,198 +16,82 @@ import org.wit.hillforts.models.HillfortModel
 import org.wit.hillforts.helpers.readImageFromPath
 import org.wit.hillforts.models.UserModel
 import android.widget.RatingBar
+import com.bumptech.glide.Glide
+import com.google.android.gms.maps.GoogleMap
 import kotlinx.android.synthetic.main.activity_hillfort.description
 import kotlinx.android.synthetic.main.activity_hillfort.hillfortTitle
+
+import org.wit.hillforts.models.Location
 import org.wit.hillforts.views.BaseView
 
 
 class HillfortView : BaseView(), AnkoLogger {
-  var user = UserModel()
   lateinit var presenter: HillfortPresenter
   var hillfort = HillfortModel()
-  lateinit var app : MainApp
-  //val rBar = findViewById<RatingBar>(R.id.ratingBar2)
+  lateinit var map: GoogleMap
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-
     setContentView(R.layout.activity_hillfort)
-    toolbarAdd.title = title
-    val rBar = findViewById<RatingBar>(R.id.ratingBar2)
-    setSupportActionBar(toolbarAdd)
-    info("Hillfort Activity started..")
 
+    super.init(toolbarAdd, true);
 
-    presenter = initPresenter( HillfortPresenter(this)) as HillfortPresenter
-    user = intent.extras?.getParcelable("user")!!
-
-
-    info("the hillfort is ........${hillfort}")
-
-
-    if (hillfort.visited) {
-      checkBox.toggle()
+    mapView.onCreate(savedInstanceState);
+    mapView.getMapAsync {
+      map = it
+      presenter.doConfigureMap(map)
+      it.setOnMapClickListener { presenter.doSetLocation() }
     }
 
-    var edit = false
+    presenter = initPresenter (HillfortPresenter(this)) as HillfortPresenter
 
-    if (intent.hasExtra("hillfort_edit")) {
-      hillfort = intent.extras?.getParcelable("hillfort_edit")!!
-      edit = true
-      if (hillfort.image1 != "") {
-        chooseImage1.setText(R.string.change_hillfort_image1)
-      }
-      if (hillfort.image2 != "") {
-        chooseImage2.setText(R.string.change_hillfort_image2)
-      }
-      if (hillfort.image3 != "") {
-        chooseImage3.setText(R.string.change_hillfort_image3)
-      }
-      if (hillfort.image4 != "") {
-        chooseImage4.setText(R.string.change_hillfort_image4)
-      }
-      hillfort = intent.extras?.getParcelable("hillfort_edit")!!
-      hillfortTitle.setText(hillfort.title)
-      description.setText(hillfort.description)
-      dateVisited.setText(hillfort.dateVisited)
-      additionalNotes.setText(hillfort.additionalNotes)
-      rBar?.rating = hillfort.rating
-      hillfortImage1.setImageBitmap(readImageFromPath(this, hillfort.image1))
-      hillfortImage2.setImageBitmap(readImageFromPath(this, hillfort.image2))
-      hillfortImage3.setImageBitmap(readImageFromPath(this, hillfort.image3))
-      hillfortImage4.setImageBitmap(readImageFromPath(this, hillfort.image4))
-      //btnAdd.setText(R.string.save_hillfort)
-    }
-
-    /*btnAdd.setOnClickListener() {
-
-      if (hillfortTitle.text.toString().isEmpty()) {
-        toast(R.string.enter_hillfort_title)
-      } else {
-
-          presenter.doAddOrSave(user.id,hillfortTitle.text.toString(),
-            description.text.toString(),
-            dateVisited.text.toString(),
-            additionalNotes.text.toString(),
-            rBar
-          )
-
-
-       // info("add Button Pressed: ${hillfort}")
-        setResult(RESULT_OK)
-        finish()
-
-      }
-    }*/
-    checkBox.setOnClickListener() {
-
-      if (hillfort.visited) {
-        checkBox.isChecked = false
-        hillfort.visited = false
-
-      } else
-        if (!hillfort.visited) {
-          hillfort.visited = true
-          checkBox.isChecked = true
-
-        }
-      app.hillforts.update(hillfort.copy())
-
-      setResult(RESULT_OK)
-
-      //finish()
-
-    }
     chooseImage1.setOnClickListener {
+      presenter.cacheHillfort(hillfort.title, description.text.toString())
       presenter.doSelectImage1()
     }
-
-    chooseImage2.setOnClickListener {
-      presenter.doSelectImage2()
-    }
-
-
-    chooseImage3.setOnClickListener {
-      presenter.doSelectImage3()
-    }
-
-    chooseImage4.setOnClickListener {
-      presenter.doSelectImage4()
-    }
-
-    hillfortLocation.setOnClickListener {
-      presenter.doSetLocation()
-    }
-
-
   }
 
- override fun showHillfort(hillfort: HillfortModel) {
-   hillfortTitle.setText(hillfort.title)
-    description.setText(hillfort.description)
-    dateVisited.setText(hillfort.dateVisited)
-    additionalNotes.setText(hillfort.additionalNotes)
-    hillfort.rating = ratingBar2.rating
-    hillfortImage1.setImageBitmap(readImageFromPath(this, hillfort.image1))
+  override fun showHillfort(hillfort: HillfortModel) {
+    if (hillfortTitle.text.isEmpty()) hillfortTitle.setText(hillfort.title)
+    if (description.text.isEmpty())  description.setText(hillfort.description)
+    Glide.with(this).load(hillfort.image1).into(hillfortImage1);
+
     if (hillfort.image1 != null) {
       chooseImage1.setText(R.string.change_hillfort_image1)
     }
-    hillfortImage2.setImageBitmap(readImageFromPath(this, hillfort.image2))
-    if (hillfort.image2 != null) {
-      chooseImage2.setText(R.string.change_hillfort_image2)
-    }
-    hillfortImage3.setImageBitmap(readImageFromPath(this, hillfort.image3))
-    if (hillfort.image3 != null) {
-      chooseImage3.setText(R.string.change_hillfort_image3)
-    }
-    hillfortImage4.setImageBitmap(readImageFromPath(this, hillfort.image4))
-    if (hillfort.image4 != null) {
-      chooseImage4.setText(R.string.change_hillfort_image4)
-    }
-    //btnAdd.setText(R.string.save_hillfort)
+    this.showLocation(hillfort.location)
   }
 
-
+  override fun showLocation (loc : Location) {
+    lat.setText("%.6f".format(loc.lat))
+    lng.setText("%.6f".format(loc.lng))
+  }
 
   override fun onCreateOptionsMenu(menu: Menu): Boolean {
     menuInflater.inflate(R.menu.menu_hillfort, menu)
+    if (presenter.edit) menu.getItem(0).setVisible(true)
     return super.onCreateOptionsMenu(menu)
   }
 
   override fun onOptionsItemSelected(item: MenuItem): Boolean {
-    when (item.itemId) {
-      R.id.item_save ->
-      {
-
+    when (item?.itemId) {
+      R.id.item_delete -> {
+        presenter.doDelete()
+      }
+      R.id.item_save -> {
         if (hillfortTitle.text.toString().isEmpty()) {
           toast(R.string.enter_hillfort_title)
         } else {
-
-          presenter.doAddOrSave(user.id,hillfortTitle.text.toString(),
-            description.text.toString(),
-            dateVisited.text.toString(),
-            additionalNotes.text.toString(),
-            ratingBar2.rating
-          )
-
-
-          // info("add Button Pressed: ${hillfort}")
-          setResult(RESULT_OK)
-          finish()
-
+          presenter.doAddOrSave(hillfortTitle.text.toString(), description.text.toString())
         }
       }
-
       R.id.item_cancel -> {
-        finish()
-      }
-      R.id.item_delete -> {
-        presenter.doDelete()
         finish()
       }
     }
     return super.onOptionsItemSelected(item)
   }
+
   override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
     super.onActivityResult(requestCode, resultCode, data)
     if (data != null) {
@@ -215,4 +99,33 @@ class HillfortView : BaseView(), AnkoLogger {
     }
   }
 
+  override fun onBackPressed() {
+    presenter.doCancel()
+  }
+
+  override fun onDestroy() {
+    super.onDestroy()
+    mapView.onDestroy()
+  }
+
+  override fun onLowMemory() {
+    super.onLowMemory()
+    mapView.onLowMemory()
+  }
+
+  override fun onPause() {
+    super.onPause()
+    mapView.onPause()
+  }
+
+  override fun onResume() {
+    super.onResume()
+    mapView.onResume()
+    presenter.doResartLocationUpdates()
+  }
+
+  override fun onSaveInstanceState(outState: Bundle) {
+    super.onSaveInstanceState(outState)
+    mapView.onSaveInstanceState(outState)
+  }
 }
