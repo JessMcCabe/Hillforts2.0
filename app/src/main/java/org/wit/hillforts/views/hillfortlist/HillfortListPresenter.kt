@@ -1,12 +1,13 @@
 package org.wit.hillforts.views.hillfortlist
 
+import com.google.firebase.auth.FirebaseAuth
 import org.jetbrains.anko.intentFor
-import org.jetbrains.anko.startActivity
 import org.wit.hillforts.main.MainApp
 import org.wit.hillforts.models.HillfortModel
 import org.wit.hillforts.models.UserModel
+import org.wit.hillforts.views.VIEW
 import org.wit.hillforts.views.hillfort.HillfortView
-import org.wit.hillforts.views.map.HillfortMapView
+
 
 class HillfortListPresenter (val view: HillfortListView) {
 
@@ -28,7 +29,12 @@ class HillfortListPresenter (val view: HillfortListView) {
             ,USER_REQUEST)
     }
 
+    fun doLogout() {
+        FirebaseAuth.getInstance().signOut()
+        view?.navigateTo(VIEW.LOGIN)
+    }
+
     fun doShowHillfortsMap() {
-        view.startActivity<HillfortMapView>()
+        view?.navigateTo(VIEW.MAPS)
     }
 }

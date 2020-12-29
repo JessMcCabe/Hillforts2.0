@@ -8,6 +8,7 @@ import android.os.Handler
 import android.os.Looper
 import org.jetbrains.anko.startActivityForResult
 import org.wit.hillforts.R
+import org.wit.hillforts.views.login.LoginView
 
 class SplashActivity : AppCompatActivity() {
 
@@ -21,7 +22,7 @@ class SplashActivity : AppCompatActivity() {
         Handler(Looper.getMainLooper()).postDelayed(
             {
                 run {
-                    startActivityForResult<LoginActivity>(0)
+                    startActivityForResult<LoginView>(0)
 
                     // close this activity
                     finish()
