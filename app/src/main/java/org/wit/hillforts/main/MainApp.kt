@@ -3,13 +3,11 @@ package org.wit.hillforts.main
 import android.app.Application
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
-import org.wit.hillforts.models.HillfortJSONStore
 import org.wit.hillforts.models.HillfortStore
-import org.wit.hillforts.models.UserJSONStore
 import org.wit.hillforts.models.UserStore
 import org.wit.hillforts.models.firebase.HillfortFireStore
-import org.wit.hillforts.room.HillfortStoreRoom
-import org.wit.hillforts.room.UserStoreRoom
+import org.wit.hillforts.models.json.UserJSONStore
+
 
 
 class MainApp : Application(), AnkoLogger {

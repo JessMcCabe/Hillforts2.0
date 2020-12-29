@@ -2,19 +2,15 @@ package org.wit.hillforts.views.hillfort
 
 import android.content.Intent
 
-import androidx.appcompat.app.AppCompatActivity
+
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_hillfort.*
 import org.jetbrains.anko.AnkoLogger
-import org.jetbrains.anko.info
 import org.jetbrains.anko.toast
 import org.wit.hillforts.R
-import org.wit.hillforts.main.MainApp
 import org.wit.hillforts.models.HillfortModel
-import org.wit.hillforts.helpers.readImageFromPath
-import org.wit.hillforts.models.UserModel
 import android.widget.RatingBar
 import com.bumptech.glide.Glide
 import com.google.android.gms.maps.GoogleMap
@@ -35,7 +31,6 @@ class HillfortView : BaseView(), AnkoLogger {
     setContentView(R.layout.activity_hillfort)
 
     super.init(toolbarAdd, true);
-
     mapView.onCreate(savedInstanceState);
     mapView.getMapAsync {
       map = it
@@ -54,6 +49,7 @@ class HillfortView : BaseView(), AnkoLogger {
   override fun showHillfort(hillfort: HillfortModel) {
     if (hillfortTitle.text.isEmpty()) hillfortTitle.setText(hillfort.title)
     if (description.text.isEmpty())  description.setText(hillfort.description)
+    ratingBar2.rating = hillfort.rating
     Glide.with(this).load(hillfort.image1).into(hillfortImage1);
 
     if (hillfort.image1 != null) {
@@ -82,7 +78,7 @@ class HillfortView : BaseView(), AnkoLogger {
         if (hillfortTitle.text.toString().isEmpty()) {
           toast(R.string.enter_hillfort_title)
         } else {
-          presenter.doAddOrSave(hillfortTitle.text.toString(), description.text.toString())
+          presenter.doAddOrSave(hillfortTitle.text.toString(), description.text.toString(),ratingBar2.rating )
         }
       }
       R.id.item_cancel -> {

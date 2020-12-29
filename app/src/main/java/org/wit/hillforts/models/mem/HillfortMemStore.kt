@@ -1,7 +1,9 @@
-package org.wit.hillforts.models
+package org.wit.hillforts.models.mem
 
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
+import org.wit.hillforts.models.HillfortModel
+import org.wit.hillforts.models.HillfortStore
 
 var lastId =0L
 

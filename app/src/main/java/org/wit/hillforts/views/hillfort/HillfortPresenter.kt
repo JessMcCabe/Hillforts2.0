@@ -39,11 +39,12 @@ class HillfortPresenter (view: BaseView) : BasePresenter(view) {
     var locationManualyChanged = false;
     var locationService: FusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(view)
     val locationRequest = createDefaultLocationRequest()
-
+    val rBar = hillfort.rating
     init {
         if (view.intent.hasExtra("hillfort_edit")) {
             edit = true
             hillfort = view.intent.extras?.getParcelable<HillfortModel>("hillfort_edit")!!
+
             view.showHillfort(hillfort)
         } else {
             if (checkLocationPermissions(view)) {
@@ -104,9 +105,10 @@ class HillfortPresenter (view: BaseView) : BasePresenter(view) {
         view?.showLocation(hillfort.location)
     }
 
-    fun doAddOrSave(title: String, description: String) {
+    fun doAddOrSave(title: String, description: String, rating: Float) {
         hillfort.title = title
         hillfort.description = description
+        hillfort.rating = rating
         doAsync {
             if (edit) {
                 app.hillforts.update(hillfort)
