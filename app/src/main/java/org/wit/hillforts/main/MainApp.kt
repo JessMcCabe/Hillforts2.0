@@ -7,6 +7,7 @@ import org.wit.hillforts.models.HillfortJSONStore
 import org.wit.hillforts.models.HillfortStore
 import org.wit.hillforts.models.UserJSONStore
 import org.wit.hillforts.models.UserStore
+import org.wit.hillforts.models.firebase.HillfortFireStore
 import org.wit.hillforts.room.HillfortStoreRoom
 import org.wit.hillforts.room.UserStoreRoom
 
@@ -18,7 +19,7 @@ class MainApp : Application(), AnkoLogger {
     lateinit var users : UserStore
     override fun onCreate() {
         super.onCreate()
-        hillforts = HillfortJSONStore(applicationContext)
+        hillforts = HillfortFireStore(applicationContext)
         users = UserJSONStore(applicationContext)
         info("Hillfort started")
 

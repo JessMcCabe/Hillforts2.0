@@ -53,9 +53,10 @@ class HillfortJSONStore : HillfortStore, AnkoLogger {
             foundHillfort.image3 = hillfort.image3
             foundHillfort.image4 = hillfort.image4
             foundHillfort.rating = hillfort.rating
-            foundHillfort.lat = hillfort.lat
-            foundHillfort.lng = hillfort.lng
-            foundHillfort.zoom = hillfort.zoom
+            //foundHillfort.lat = hillfort.lat
+           // foundHillfort.lng = hillfort.lng
+           // foundHillfort.zoom = hillfort.zoom
+            foundHillfort.location = hillfort.location
             serialize()
         }
     }
@@ -78,5 +79,9 @@ class HillfortJSONStore : HillfortStore, AnkoLogger {
 
     override fun findById(id:Long) : HillfortModel? {
         return hillforts.find { it.id == id }
+    }
+
+    override fun clear() {
+        hillforts.clear()
     }
 }
