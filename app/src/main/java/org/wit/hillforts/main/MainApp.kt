@@ -18,8 +18,8 @@ class MainApp : Application(), AnkoLogger {
     lateinit var users : UserStore
     override fun onCreate() {
         super.onCreate()
-        hillforts = HillfortStoreRoom(applicationContext)
-        users = UserStoreRoom(applicationContext)
+        hillforts = HillfortJSONStore(applicationContext)
+        users = UserJSONStore(applicationContext)
         info("Hillfort started")
 
     }
