@@ -193,7 +193,8 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
             signedInButtons.visibility = View.VISIBLE
 
             verifyEmailButton.isEnabled = !user.isEmailVerified
-            //startActivityForResult (intentFor<HillfortListView>().putExtra("user", user), USER_REQUEST)
+            startActivityForResult (intentFor<HillfortListView>().putExtra("user", user.email), USER_REQUEST) // causing null pointer exception, manually pass in user id to test first?
+            //User model and hillfort model in json still in use
         } else {
             status.setText(R.string.signed_out)
             detail.text = null

@@ -35,7 +35,7 @@ class HillfortListView : AppCompatActivity(), HillfortListener, AnkoLogger {
         info("In Hillfort List Activity, user is..${user}")
         val layoutManager = LinearLayoutManager(this)
         recyclerView.layoutManager = layoutManager
-        recyclerView.adapter = HillfortAdapter(userHillforts, this)
+        recyclerView?.adapter = HillfortAdapter(userHillforts, this)
         recyclerView.adapter?.notifyDataSetChanged()
     }
 

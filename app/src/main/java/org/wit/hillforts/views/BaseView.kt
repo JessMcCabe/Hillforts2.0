@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import org.jetbrains.anko.AnkoLogger
 import org.wit.hillforts.models.HillfortModel
+import org.wit.hillforts.models.Location
 import org.wit.hillforts.views.editlocation.EditLocationView
 import org.wit.hillforts.views.hillfort.HillfortView
 import org.wit.hillforts.views.hillfortlist.HillfortListView
@@ -67,4 +68,5 @@ open abstract class BaseView() : AppCompatActivity(), AnkoLogger {
     open fun showHillforts(hillfort: List<HillfortModel>) {}
     open fun showProgress() {}
     open fun hideProgress() {}
+    open fun showLocation(location : Location) {}
 }
