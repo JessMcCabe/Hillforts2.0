@@ -35,7 +35,10 @@ class HillfortFireStore(val context: Context) : HillfortStore, AnkoLogger {
             hillfort.fbId = key
             hillforts.add(hillfort)
             db.child("users").child(userId).child("hillforts").child(key).setValue(hillfort)
-            updateImage(hillfort)
+            updateImage1(hillfort)
+            updateImage2(hillfort)
+            updateImage3(hillfort)
+            updateImage4(hillfort)
         }
     }
 
@@ -60,7 +63,16 @@ class HillfortFireStore(val context: Context) : HillfortStore, AnkoLogger {
 
         db.child("users").child(userId).child("hillforts").child(hillfort.fbId).setValue(hillfort)
         if ((hillfort.image1.length) > 0 && (hillfort.image1[0] != 'h')) {
-            updateImage(hillfort)
+            updateImage1(hillfort)
+        }
+        if ((hillfort.image2.length) > 0 && (hillfort.image2[0] != 'h')) {
+            updateImage2(hillfort)
+        }
+        if ((hillfort.image3.length) > 0 && (hillfort.image3[0] != 'h')) {
+            updateImage3(hillfort)
+        }
+        if ((hillfort.image4.length) > 0 && (hillfort.image4[0] != 'h')) {
+            updateImage4(hillfort)
         }
     }
 
@@ -72,7 +84,7 @@ class HillfortFireStore(val context: Context) : HillfortStore, AnkoLogger {
     override fun clear() {
         hillforts.clear()
     }
-    fun updateImage(hillfort: HillfortModel) {
+    fun updateImage1(hillfort: HillfortModel) {
         if (hillfort.image1 != "") {
             val fileName = File(hillfort.image1)
             val imageName = fileName.getName()
@@ -90,6 +102,78 @@ class HillfortFireStore(val context: Context) : HillfortStore, AnkoLogger {
                 }.addOnSuccessListener { taskSnapshot ->
                     taskSnapshot.metadata!!.reference!!.downloadUrl.addOnSuccessListener {
                         hillfort.image1 = it.toString()
+                        db.child("users").child(userId).child("hillforts").child(hillfort.fbId).setValue(hillfort)
+                    }
+                }
+            }
+        }
+    }
+    fun updateImage2(hillfort: HillfortModel) {
+        if (hillfort.image2 != "") {
+            val fileName = File(hillfort.image2)
+            val imageName = fileName.getName()
+
+            var imageRef = st.child(userId + '/' + imageName)
+            val baos = ByteArrayOutputStream()
+            val bitmap = readImageFromPath(context, hillfort.image2)
+
+            bitmap?.let {
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
+                val data = baos.toByteArray()
+                val uploadTask = imageRef.putBytes(data)
+                uploadTask.addOnFailureListener {
+                    println(it.message)
+                }.addOnSuccessListener { taskSnapshot ->
+                    taskSnapshot.metadata!!.reference!!.downloadUrl.addOnSuccessListener {
+                        hillfort.image2 = it.toString()
+                        db.child("users").child(userId).child("hillforts").child(hillfort.fbId).setValue(hillfort)
+                    }
+                }
+            }
+        }
+    }
+    fun updateImage3(hillfort: HillfortModel) {
+        if (hillfort.image3 != "") {
+            val fileName = File(hillfort.image3)
+            val imageName = fileName.getName()
+
+            var imageRef = st.child(userId + '/' + imageName)
+            val baos = ByteArrayOutputStream()
+            val bitmap = readImageFromPath(context, hillfort.image3)
+
+            bitmap?.let {
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
+                val data = baos.toByteArray()
+                val uploadTask = imageRef.putBytes(data)
+                uploadTask.addOnFailureListener {
+                    println(it.message)
+                }.addOnSuccessListener { taskSnapshot ->
+                    taskSnapshot.metadata!!.reference!!.downloadUrl.addOnSuccessListener {
+                        hillfort.image3 = it.toString()
+                        db.child("users").child(userId).child("hillforts").child(hillfort.fbId).setValue(hillfort)
+                    }
+                }
+            }
+        }
+    }
+    fun updateImage4(hillfort: HillfortModel) {
+        if (hillfort.image4 != "") {
+            val fileName = File(hillfort.image4)
+            val imageName = fileName.getName()
+
+            var imageRef = st.child(userId + '/' + imageName)
+            val baos = ByteArrayOutputStream()
+            val bitmap = readImageFromPath(context, hillfort.image4)
+
+            bitmap?.let {
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
+                val data = baos.toByteArray()
+                val uploadTask = imageRef.putBytes(data)
+                uploadTask.addOnFailureListener {
+                    println(it.message)
+                }.addOnSuccessListener { taskSnapshot ->
+                    taskSnapshot.metadata!!.reference!!.downloadUrl.addOnSuccessListener {
+                        hillfort.image4 = it.toString()
                         db.child("users").child(userId).child("hillforts").child(hillfort.fbId).setValue(hillfort)
                     }
                 }

@@ -11,7 +11,6 @@ import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.toast
 import org.wit.hillforts.R
 import org.wit.hillforts.models.HillfortModel
-import android.widget.RatingBar
 import com.bumptech.glide.Glide
 import com.google.android.gms.maps.GoogleMap
 import kotlinx.android.synthetic.main.activity_hillfort.description
@@ -41,8 +40,20 @@ class HillfortView : BaseView(), AnkoLogger {
     presenter = initPresenter(HillfortPresenter(this)) as HillfortPresenter
 
     chooseImage1.setOnClickListener {
-      presenter.cacheHillfort(hillfort.title, description.text.toString())
+      presenter.cacheHillfort(hillfort.title, description.text.toString(), hillfort.visited )
       presenter.doSelectImage1()
+    }
+    chooseImage2.setOnClickListener {
+      presenter.cacheHillfort(hillfort.title, description.text.toString(),hillfort.visited)
+      presenter.doSelectImage2()
+    }
+    chooseImage3.setOnClickListener {
+      presenter.cacheHillfort(hillfort.title, description.text.toString(),hillfort.visited)
+      presenter.doSelectImage3()
+    }
+    chooseImage4.setOnClickListener {
+      presenter.cacheHillfort(hillfort.title, description.text.toString(),hillfort.visited)
+      presenter.doSelectImage4()
     }
 
     checkBox.setOnClickListener() {
@@ -51,10 +62,12 @@ class HillfortView : BaseView(), AnkoLogger {
         //checkBox.isChecked = true
         hillfort.visited = true
 
+
       } else
         if (!checkBox.isChecked) {
           hillfort.visited = false
-          //checkBox.isChecked = false
+         // checkBox.isChecked = false
+
 
         }
     }
@@ -67,15 +80,31 @@ class HillfortView : BaseView(), AnkoLogger {
     dateVisited.setText(hillfort.dateVisited)
     additionalNotes.setText(hillfort.additionalNotes)
     Glide.with(this).load(hillfort.image1).into(hillfortImage1);
-
-    if (hillfort.image1 != null) {
-      chooseImage1.setText(R.string.change_hillfort_image1)
-    }
-
-
-    if (hillfort.visited) {
+    Glide.with(this).load(hillfort.image2).into(hillfortImage2);
+    Glide.with(this).load(hillfort.image3).into(hillfortImage3);
+    Glide.with(this).load(hillfort.image4).into(hillfortImage4);
+    if (checkBox.isChecked) {
+      //checkBox.isChecked = true
       checkBox.toggle()
     }
+
+    if (hillfort.image1 != "") {
+      chooseImage1.setText(R.string.change_hillfort_image1)
+    }
+    if (hillfort.image2 != "") {
+      chooseImage2.setText(R.string.change_hillfort_image2)
+    }
+    if (hillfort.image3 != "") {
+      chooseImage3.setText(R.string.change_hillfort_image3)
+    }
+    if (hillfort.image4 != "") {
+      chooseImage4.setText(R.string.change_hillfort_image4)
+    }
+
+
+    //if (hillfort.visited) {
+     // checkBox.toggle()
+   // }
 
 
   }
@@ -102,7 +131,8 @@ class HillfortView : BaseView(), AnkoLogger {
         } else {
 
           presenter.doAddOrSave(hillfortTitle.text.toString(), description.text.toString(),ratingBar2.rating, dateVisited.text.toString(), additionalNotes.text.toString()
-          , hillfort.visited)
+          , hillfort.visited, )
+
         }
       }
       R.id.item_cancel -> {

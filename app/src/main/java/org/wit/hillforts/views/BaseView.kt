@@ -12,6 +12,7 @@ import org.wit.hillforts.views.editlocation.EditLocationView
 import org.wit.hillforts.views.hillfort.HillfortView
 import org.wit.hillforts.views.hillfortlist.HillfortListView
 import org.wit.hillforts.views.login.LoginView
+import org.wit.hillforts.views.map.HillfortMapPresenter
 import org.wit.hillforts.views.map.HillfortMapView
 
 val IMAGE_REQUEST1 = 1

@@ -85,9 +85,11 @@ class HillfortPresenter (view: BaseView) : BasePresenter(view) {
         }
     }
 
-    fun cacheHillfort (title: String, description: String) {
+    fun cacheHillfort (title: String, description: String, visited: Boolean ) {
         hillfort.title = title;
         hillfort.description = description
+        hillfort.visited = visited
+
     }
 
     fun doConfigureMap(m: GoogleMap) {
@@ -105,13 +107,14 @@ class HillfortPresenter (view: BaseView) : BasePresenter(view) {
         view?.showLocation(hillfort.location)
     }
 
-    fun doAddOrSave(title: String, description: String, rating: Float, dateVisited: String, additionalNotes: String , visited: Boolean) {
+    fun doAddOrSave(title: String, description: String, rating: Float, dateVisited: String, additionalNotes: String , visited: Boolean, ) {
         hillfort.title = title
         hillfort.description = description
         hillfort.rating = rating
         hillfort.dateVisited = dateVisited
         hillfort.additionalNotes = additionalNotes
         hillfort.visited = visited
+
         doAsync {
             if (edit) {
                 app.hillforts.update(hillfort)
@@ -143,6 +146,24 @@ class HillfortPresenter (view: BaseView) : BasePresenter(view) {
         }
     }
 
+    fun doSelectImage2() {
+        view?.let {
+            showImagePicker(view!!, IMAGE_REQUEST2)
+        }
+    }
+
+    fun doSelectImage3() {
+        view?.let {
+            showImagePicker(view!!, IMAGE_REQUEST3)
+        }
+    }
+
+    fun doSelectImage4() {
+        view?.let {
+            showImagePicker(view!!, IMAGE_REQUEST4)
+        }
+    }
+
     fun doSetLocation() {
         locationManualyChanged = true;
         view?.navigateTo(VIEW.LOCATION, LOCATION_REQUEST, "location", Location(hillfort.location.lat, hillfort.location.lng, hillfort.location.zoom))
@@ -152,6 +173,18 @@ class HillfortPresenter (view: BaseView) : BasePresenter(view) {
         when (requestCode) {
             IMAGE_REQUEST1 -> {
                 hillfort.image1 = data.data.toString()
+                view?.showHillfort(hillfort)
+            }
+            IMAGE_REQUEST2 -> {
+                hillfort.image2 = data.data.toString()
+                view?.showHillfort(hillfort)
+            }
+            IMAGE_REQUEST3 -> {
+                hillfort.image3 = data.data.toString()
+                view?.showHillfort(hillfort)
+            }
+            IMAGE_REQUEST4 -> {
+                hillfort.image4 = data.data.toString()
                 view?.showHillfort(hillfort)
             }
             LOCATION_REQUEST -> {
