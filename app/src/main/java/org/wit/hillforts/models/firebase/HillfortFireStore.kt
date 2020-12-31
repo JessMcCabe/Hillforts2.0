@@ -43,7 +43,7 @@ class HillfortFireStore(val context: Context) : HillfortStore, AnkoLogger {
     }
 
     override fun update(hillfort: HillfortModel) {
-        var foundHillfort: HillfortModel? = hillforts.find { h -> h.id == hillfort.id }
+        var foundHillfort: HillfortModel? = hillforts.find { h -> h.fbId == hillfort.fbId }
         if (foundHillfort != null) {
             foundHillfort.title = hillfort.title
             foundHillfort.visited = hillfort.visited
@@ -74,6 +74,7 @@ class HillfortFireStore(val context: Context) : HillfortStore, AnkoLogger {
         if ((hillfort.image4.length) > 0 && (hillfort.image4[0] != 'h')) {
             updateImage4(hillfort)
         }
+
     }
 
     override fun delete(hillfort: HillfortModel) {

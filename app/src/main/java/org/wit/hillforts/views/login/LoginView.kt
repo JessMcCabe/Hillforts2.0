@@ -17,6 +17,7 @@ class LoginView : BaseView() {
 
         setContentView(R.layout.activity_login)
         init(toolbar, false)
+        toolbar.title = title
         progressBar.visibility = View.GONE
         presenter = initPresenter(LoginPresenter(this)) as LoginPresenter
 

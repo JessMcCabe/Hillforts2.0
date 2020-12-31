@@ -28,6 +28,7 @@ class HillfortListView :  BaseView(), HillfortListener {
     }
 
     override fun showHillforts(hillforts: List<HillfortModel>) {
+
         recyclerView.adapter = HillfortAdapter(hillforts, this)
         recyclerView.adapter?.notifyDataSetChanged()
     }
@@ -43,6 +44,7 @@ class HillfortListView :  BaseView(), HillfortListener {
             R.id.item_map -> presenter.doShowHillfortsMap()
             R.id.btn_logout ->presenter.doLogout()
         }
+
         return super.onOptionsItemSelected(item)
     }
 
