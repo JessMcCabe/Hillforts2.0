@@ -38,24 +38,46 @@ class HillfortView : BaseView(), AnkoLogger {
       it.setOnMapClickListener { presenter.doSetLocation() }
     }
 
-    presenter = initPresenter (HillfortPresenter(this)) as HillfortPresenter
+    presenter = initPresenter(HillfortPresenter(this)) as HillfortPresenter
 
     chooseImage1.setOnClickListener {
       presenter.cacheHillfort(hillfort.title, description.text.toString())
       presenter.doSelectImage1()
     }
+
+    checkBox.setOnClickListener() {
+
+      if (checkBox.isChecked) {
+        //checkBox.isChecked = true
+        hillfort.visited = true
+
+      } else
+        if (!checkBox.isChecked) {
+          hillfort.visited = false
+          //checkBox.isChecked = false
+
+        }
+    }
   }
 
   override fun showHillfort(hillfort: HillfortModel) {
     if (hillfortTitle.text.isEmpty()) hillfortTitle.setText(hillfort.title)
-    if (description.text.isEmpty())  description.setText(hillfort.description)
+    if (description.text.isEmpty()) description.setText(hillfort.description)
     ratingBar2.rating = hillfort.rating
+    dateVisited.setText(hillfort.dateVisited)
+    additionalNotes.setText(hillfort.additionalNotes)
     Glide.with(this).load(hillfort.image1).into(hillfortImage1);
 
     if (hillfort.image1 != null) {
       chooseImage1.setText(R.string.change_hillfort_image1)
     }
-    this.showLocation(hillfort.location)
+
+
+    if (hillfort.visited) {
+      checkBox.toggle()
+    }
+
+
   }
 
   override fun showLocation (loc : Location) {
@@ -78,7 +100,9 @@ class HillfortView : BaseView(), AnkoLogger {
         if (hillfortTitle.text.toString().isEmpty()) {
           toast(R.string.enter_hillfort_title)
         } else {
-          presenter.doAddOrSave(hillfortTitle.text.toString(), description.text.toString(),ratingBar2.rating )
+
+          presenter.doAddOrSave(hillfortTitle.text.toString(), description.text.toString(),ratingBar2.rating, dateVisited.text.toString(), additionalNotes.text.toString()
+          , hillfort.visited)
         }
       }
       R.id.item_cancel -> {
@@ -124,4 +148,6 @@ class HillfortView : BaseView(), AnkoLogger {
     super.onSaveInstanceState(outState)
     mapView.onSaveInstanceState(outState)
   }
+
+
 }
