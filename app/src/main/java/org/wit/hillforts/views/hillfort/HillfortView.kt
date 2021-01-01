@@ -15,7 +15,6 @@ import com.bumptech.glide.Glide
 import com.google.android.gms.maps.GoogleMap
 import kotlinx.android.synthetic.main.activity_hillfort.description
 import kotlinx.android.synthetic.main.activity_hillfort.hillfortTitle
-
 import org.wit.hillforts.models.Location
 import org.wit.hillforts.views.BaseView
 
@@ -100,6 +99,7 @@ class HillfortView : BaseView(), AnkoLogger {
     if (hillfort.image4 != "") {
       chooseImage4.setText(R.string.change_hillfort_image4)
     }
+    this.showLocation(hillfort.location)
 
 
     //if (hillfort.visited) {
@@ -131,7 +131,7 @@ class HillfortView : BaseView(), AnkoLogger {
         } else {
 
           presenter.doAddOrSave(hillfortTitle.text.toString(), description.text.toString(),ratingBar2.rating, dateVisited.text.toString(), additionalNotes.text.toString()
-          , hillfort.visited, )
+          , hillfort.visited )
 
         }
       }

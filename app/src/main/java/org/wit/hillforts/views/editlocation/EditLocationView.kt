@@ -44,7 +44,7 @@ class EditLocationView : BaseView(), GoogleMap.OnMarkerDragListener, GoogleMap.O
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item?.itemId) {
-            R.id.item_save -> {
+            R.id.item_save_loc -> {
                 presenter.doSave()
             }
         }

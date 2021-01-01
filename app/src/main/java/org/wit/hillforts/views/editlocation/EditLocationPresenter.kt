@@ -22,7 +22,7 @@ class EditLocationPresenter(view: BaseView) : BasePresenter(view) {
     fun doConfigureMap(map: GoogleMap) {
         val loc = LatLng(location.lat, location.lng)
         val options = MarkerOptions()
-            .title("Placemark")
+            .title("Hillfort")
             .snippet("GPS : " + loc.toString())
             .draggable(true)
             .position(loc)
@@ -34,6 +34,7 @@ class EditLocationPresenter(view: BaseView) : BasePresenter(view) {
     fun doUpdateLocation(lat: Double, lng: Double) {
         location.lat = lat
         location.lng = lng
+
     }
 
     fun doSave() {
@@ -41,6 +42,7 @@ class EditLocationPresenter(view: BaseView) : BasePresenter(view) {
         resultIntent.putExtra("location", location)
         view?.setResult(0, resultIntent)
         view?.finish()
+
     }
 
     fun doUpdateMarker(marker: Marker) {

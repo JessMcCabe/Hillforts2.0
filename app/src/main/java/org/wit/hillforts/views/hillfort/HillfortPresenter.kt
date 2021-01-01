@@ -30,7 +30,7 @@ class HillfortPresenter (view: BaseView) : BasePresenter(view) {
     val IMAGE_REQUEST2 = 2
     val IMAGE_REQUEST3 = 3
     val IMAGE_REQUEST4 = 4
-    val LOCATION_REQUEST = 2
+    val LOCATION_REQUEST = 6
 
     var map: GoogleMap? = null
     var hillfort = HillfortModel()
@@ -107,13 +107,21 @@ class HillfortPresenter (view: BaseView) : BasePresenter(view) {
         view?.showLocation(hillfort.location)
     }
 
-    fun doAddOrSave(title: String, description: String, rating: Float, dateVisited: String, additionalNotes: String , visited: Boolean, ) {
+    fun doAddOrSave(
+        title: String,
+        description: String,
+        rating: Float,
+        dateVisited: String,
+        additionalNotes: String,
+        visited: Boolean,
+         ) {
         hillfort.title = title
         hillfort.description = description
         hillfort.rating = rating
         hillfort.dateVisited = dateVisited
         hillfort.additionalNotes = additionalNotes
         hillfort.visited = visited
+       // hillfort.location = location
 
         doAsync {
             if (edit) {
