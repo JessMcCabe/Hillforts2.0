@@ -16,12 +16,14 @@ import org.wit.hillforts.views.BaseView
 class HillfortMapPresenter(view: BaseView) : BasePresenter(view) {
 
 
+    @SuppressLint("MissingPermission")
     fun doPopulateMap(map: GoogleMap, hillforts: List<HillfortModel>) {
         map.uiSettings.setZoomControlsEnabled(true)
         hillforts.forEach {
             val loc = LatLng(it.location.lat, it.location.lng)
             val options = MarkerOptions().title(it.title).position(loc)
             map.addMarker(options).tag = it
+            map.isMyLocationEnabled = true
             map.moveCamera(CameraUpdateFactory.newLatLngZoom(loc, it.location.zoom))
         }
     }
