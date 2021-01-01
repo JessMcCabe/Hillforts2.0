@@ -1,5 +1,6 @@
 package org.wit.hillforts.views.map
 
+import android.annotation.SuppressLint
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.LatLng
@@ -13,6 +14,7 @@ import org.wit.hillforts.views.BasePresenter
 import org.wit.hillforts.views.BaseView
 
 class HillfortMapPresenter(view: BaseView) : BasePresenter(view) {
+
 
     fun doPopulateMap(map: GoogleMap, hillforts: List<HillfortModel>) {
         map.uiSettings.setZoomControlsEnabled(true)

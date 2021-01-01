@@ -1,5 +1,6 @@
 package org.wit.hillforts.views.editlocation
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -19,6 +20,7 @@ class EditLocationPresenter(view: BaseView) : BasePresenter(view) {
         location = view.intent.extras?.getParcelable<Location>("location")!!
     }
 
+    @SuppressLint("MissingPermission")
     fun doConfigureMap(map: GoogleMap) {
         val loc = LatLng(location.lat, location.lng)
         val options = MarkerOptions()
@@ -27,6 +29,7 @@ class EditLocationPresenter(view: BaseView) : BasePresenter(view) {
             .draggable(true)
             .position(loc)
         map.addMarker(options)
+        map.isMyLocationEnabled = true
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(loc, location.zoom))
         view?.showLocation(location);
     }
