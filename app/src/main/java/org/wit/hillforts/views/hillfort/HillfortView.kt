@@ -54,6 +54,10 @@ class HillfortView : BaseView(), AnkoLogger {
       presenter.cacheHillfort(hillfort.title, description.text.toString(),hillfort.visited)
       presenter.doSelectImage4()
     }
+    add_rem_fav.setOnClickListener {
+      presenter.cacheHillfort(hillfort.title, description.text.toString(),hillfort.visited)
+      presenter.doAddToFav()
+    }
 
     checkBox.setOnClickListener() {
 
@@ -87,18 +91,26 @@ class HillfortView : BaseView(), AnkoLogger {
       checkBox.toggle()
     }
 
-    if (hillfort.image1 != "") {
+    if (hillfort.image1 != "" || !hillfort.image1.isNullOrEmpty()) {
       chooseImage1.setText(R.string.change_hillfort_image1)
     }
-    if (hillfort.image2 != "") {
+    if (hillfort.image2 != "" || !hillfort.image2.isNullOrEmpty()) {
       chooseImage2.setText(R.string.change_hillfort_image2)
     }
-    if (hillfort.image3 != "") {
+    if (hillfort.image3 != "" || !hillfort.image3.isNullOrEmpty()) {
       chooseImage3.setText(R.string.change_hillfort_image3)
     }
-    if (hillfort.image4 != "") {
+    if (hillfort.image4 != "" || !hillfort.image4.isNullOrEmpty()) {
       chooseImage4.setText(R.string.change_hillfort_image4)
     }
+
+    if(!hillfort.fav){
+    add_rem_fav.setText(R.string.add_to_Favourite)
+  }
+    if(hillfort.fav){
+    add_rem_fav.setText(R.string.remove_from_Favourite)
+    }
+
     this.showLocation(hillfort.location)
 
 
@@ -129,9 +141,13 @@ class HillfortView : BaseView(), AnkoLogger {
         if (hillfortTitle.text.toString().isEmpty()) {
           toast(R.string.enter_hillfort_title)
         } else {
-
+      if (add_rem_fav.text.toString().equals( "Remove From Favourite"))
+        {
+          hillfort.fav = true
+      }
           presenter.doAddOrSave(hillfortTitle.text.toString(), description.text.toString(),ratingBar2.rating, dateVisited.text.toString(), additionalNotes.text.toString()
-          , hillfort.visited )
+          , hillfort.visited
+          , hillfort.fav)
 
         }
       }
