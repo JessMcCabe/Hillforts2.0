@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.HillfortMapsActivity">
+    tools:context=".views.map.HillfortMapView">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -30,14 +30,14 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cardView"
-            android:layout_width="372dp"
-            android:layout_height="160dp"
+            android:layout_width="357dp"
+            android:layout_height="128dp"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.41"
+            app:layout_constraintHorizontal_bias="0.448"
             app:layout_constraintStart_toStartOf="parent" >
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -57,12 +57,12 @@
                     app:layout_constraintStart_toEndOf="@+id/currentTitle"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:srcCompat="@tools:sample/backgrounds/scenic"
-                    android:contentDescription="@string/hillfort_image_placeholder"/>
+                    android:contentDescription="@string/hillfort_image_placeholder" />
 
                 <TextView
                     android:id="@+id/currentTitle"
-                    android:layout_width="178dp"
-                    android:layout_height="30dp"
+                    android:layout_width="136dp"
+                    android:layout_height="25dp"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="28dp"
                     android:layout_marginEnd="8dp"
@@ -73,8 +73,8 @@
 
                 <TextView
                     android:id="@+id/currentDescription"
-                    android:layout_width="172dp"
-                    android:layout_height="34dp"
+                    android:layout_width="136dp"
+                    android:layout_height="22dp"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="20dp"
                     android:layout_marginEnd="8dp"
@@ -101,4 +101,5 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.736" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
