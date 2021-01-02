@@ -1,4 +1,6 @@
-package org.wit.hillforts.views.hillfortlist
+package org.wit.hillforts.views.HillfortFavourite
+
+
 
 import com.google.firebase.auth.FirebaseAuth
 import org.jetbrains.anko.doAsync
@@ -13,7 +15,7 @@ import org.wit.hillforts.views.VIEW
 
 
 
-class HillfortListPresenter(view: BaseView) : BasePresenter(view) {
+class HillfortFavouritePresenter(view: BaseView) : BasePresenter(view) {
 
     fun doAddHillfort() {
         view?.navigateTo(VIEW.HILLFORT)
@@ -26,13 +28,16 @@ class HillfortListPresenter(view: BaseView) : BasePresenter(view) {
     fun doShowHillfortsMap() {
         view?.navigateTo(VIEW.MAPS)
     }
-    fun doShowHillfortsFavourite() {
-        view?.navigateTo(VIEW.FAVOURITE)
+
+    fun doShowHillforts() {
+        view?.navigateTo(VIEW.LIST)
     }
 
     fun loadHillforts() {
         doAsync {
-            val hillforts = app.hillforts.findAll()
+            val fav : Boolean = true
+            val hillfortsAll = app.hillforts.findAll()
+            val hillforts = hillfortsAll.filter { hillfort -> hillfort.fav == fav }
             uiThread {
                 view?.showHillforts(hillforts)
             }

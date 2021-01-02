@@ -11,8 +11,10 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import kotlinx.android.synthetic.main.activity_hillfort.*
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
+import org.wit.hillforts.R
 import org.wit.hillforts.helpers.checkLocationPermissions
 import org.wit.hillforts.helpers.createDefaultLocationRequest
 import org.wit.hillforts.helpers.isPermissionGranted
@@ -114,6 +116,7 @@ class HillfortPresenter (view: BaseView) : BasePresenter(view) {
         dateVisited: String,
         additionalNotes: String,
         visited: Boolean,
+        fav: Boolean
          ) {
         hillfort.title = title
         hillfort.description = description
@@ -121,6 +124,7 @@ class HillfortPresenter (view: BaseView) : BasePresenter(view) {
         hillfort.dateVisited = dateVisited
         hillfort.additionalNotes = additionalNotes
         hillfort.visited = visited
+        hillfort.fav = fav
        // hillfort.location = location
 
         doAsync {
@@ -200,6 +204,16 @@ class HillfortPresenter (view: BaseView) : BasePresenter(view) {
                 hillfort.location = location
                 locationUpdate(location)
             }
+        }
+    }
+
+    fun doAddToFav() {
+        hillfort.fav = !hillfort.fav
+        if(!hillfort.fav){
+            view?.add_rem_fav?.setText(R.string.add_to_Favourite)
+        }
+        if(hillfort.fav){
+            view?.add_rem_fav?.setText(R.string.remove_from_Favourite)
         }
     }
 

@@ -8,6 +8,7 @@ import com.google.firebase.auth.FirebaseAuth
 import org.jetbrains.anko.AnkoLogger
 import org.wit.hillforts.models.HillfortModel
 import org.wit.hillforts.models.Location
+import org.wit.hillforts.views.HillfortFavourite.HillfortFavouriteView
 import org.wit.hillforts.views.editlocation.EditLocationView
 import org.wit.hillforts.views.hillfort.HillfortView
 import org.wit.hillforts.views.hillfortlist.HillfortListView
@@ -19,7 +20,7 @@ val IMAGE_REQUEST1 = 1
 val LOCATION_REQUEST = 2
 
 enum class VIEW {
-    LOCATION, HILLFORT, MAPS, LIST, LOGIN
+    LOCATION, HILLFORT, MAPS, LIST, LOGIN, FAVOURITE
 }
 
 open abstract class BaseView() : AppCompatActivity(), AnkoLogger {
@@ -34,6 +35,7 @@ open abstract class BaseView() : AppCompatActivity(), AnkoLogger {
             VIEW.MAPS -> intent = Intent(this, HillfortMapView::class.java)
             VIEW.LIST -> intent = Intent(this, HillfortListView::class.java)
             VIEW.LOGIN -> intent = Intent(this, LoginView::class.java)
+            VIEW.FAVOURITE -> intent = Intent(this, HillfortFavouriteView::class.java)
         }
         if (key != "") {
             intent.putExtra(key, value)
