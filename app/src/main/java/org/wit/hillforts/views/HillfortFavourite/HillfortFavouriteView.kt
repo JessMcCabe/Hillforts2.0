@@ -1,4 +1,10 @@
-package org.wit.hillforts.views.hillfortlist
+package org.wit.hillforts.views.HillfortFavourite
+
+import org.wit.hillforts.views.hillfortlist.HillfortAdapter
+import org.wit.hillforts.views.hillfortlist.HillfortListPresenter
+import org.wit.hillforts.views.hillfortlist.HillfortListener
+
+
 
 import android.content.Intent
 import android.os.Bundle
@@ -10,17 +16,17 @@ import org.wit.hillforts.models.HillfortModel
 import org.wit.hillforts.views.BaseView
 
 
-class HillfortListView :  BaseView(), HillfortListener {
+class HillfortFavouriteView :  BaseView(), HillfortListener {
 
-    lateinit var presenter: HillfortListPresenter
+    lateinit var presenter: HillfortFavouritePresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_hillfort_list)
         setSupportActionBar(toolbar)
-        super.init(toolbar, false)
+        super.init(toolbar, true)
 
-        presenter = HillfortListPresenter(this)
+        presenter = HillfortFavouritePresenter(this)
 
         val layoutManager = LinearLayoutManager(this)
         recyclerView.layoutManager = layoutManager
@@ -41,7 +47,6 @@ class HillfortListView :  BaseView(), HillfortListener {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item?.itemId) {
             R.id.item_add -> presenter.doAddHillfort()
-            R.id.item_favourites -> presenter.doShowHillfortsFavourite()
             R.id.item_map -> presenter.doShowHillfortsMap()
             R.id.btn_logout ->presenter.doLogout()
         }
