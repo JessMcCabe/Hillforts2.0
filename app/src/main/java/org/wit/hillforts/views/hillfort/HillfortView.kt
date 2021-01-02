@@ -15,6 +15,7 @@ import com.bumptech.glide.Glide
 import com.google.android.gms.maps.GoogleMap
 import kotlinx.android.synthetic.main.activity_hillfort.description
 import kotlinx.android.synthetic.main.activity_hillfort.hillfortTitle
+import kotlinx.android.synthetic.main.activity_settings.*
 import org.wit.hillforts.models.Location
 import org.wit.hillforts.views.BaseView
 
@@ -114,9 +115,9 @@ class HillfortView : BaseView(), AnkoLogger {
     this.showLocation(hillfort.location)
 
 
-    //if (hillfort.visited) {
-     // checkBox.toggle()
-   // }
+    if (hillfort.visited) {
+      checkBox.toggle()
+    }
 
 
   }
@@ -145,6 +146,10 @@ class HillfortView : BaseView(), AnkoLogger {
         {
           hillfort.fav = true
       }
+          if (checkBox.isChecked)
+          {
+            hillfort.visited = true
+          }
           presenter.doAddOrSave(hillfortTitle.text.toString(), description.text.toString(),ratingBar2.rating, dateVisited.text.toString(), additionalNotes.text.toString()
           , hillfort.visited
           , hillfort.fav)
